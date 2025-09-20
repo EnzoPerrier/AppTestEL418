@@ -9,7 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\etape0.png" />
+    <None Remove="Images\etape1.png" />
+    <None Remove="Images\etape2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="9.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\etape0.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\etape1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\etape2.png" />
   </ItemGroup>
 
 </Project>
