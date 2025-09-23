@@ -12,6 +12,9 @@
     <None Remove="Images\etape0.png" />
     <None Remove="Images\etape1.png" />
     <None Remove="Images\etape2.png" />
+    <None Remove="Images\logo.ico" />
+    <None Remove="Images\splash.png" />
+    <None Remove="Images\splash.png.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +29,15 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\etape2.png" />
+    <Resource Include="Images\logo.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="Images\splash.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </SplashScreen>
   </ItemGroup>
 
 </Project>

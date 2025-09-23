@@ -62,6 +62,8 @@ namespace AppTestEL418 {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "9.0.9.0")]
         public static void Main() {
+            SplashScreen splashScreen = new SplashScreen("images/splash.png");
+            splashScreen.Show(true);
             AppTestEL418.App app = new AppTestEL418.App();
             app.InitializeComponent();
             app.Run();
