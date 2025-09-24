@@ -12,7 +12,6 @@ namespace AppTestEL418
         private int currentState = 0;
         private SerialPort serialPort;
 
-        // Textes par étape
         private readonly string[] etapeMessages =
         {
             "ETAPE 0 : Appuyer sur le bouton pour commencer",
@@ -30,7 +29,6 @@ namespace AppTestEL418
             "ETAPE 12 : Test accu"
         };
 
-        // Images par étape
         private readonly string[] etapeImages =
         {
             "pack://application:,,,/Images/etape0.png",
@@ -48,17 +46,14 @@ namespace AppTestEL418
             "pack://application:,,,/Images/etape12.png"
         };
 
-        private bool[] dips = new bool[8];       // DIPs
-        private bool[] inps = new bool[3];       // Entrées
+        private bool[] dips = new bool[8];
+        private bool[] inps = new bool[3];
 
         public MainWindow()
         {
             InitializeComponent();
-
-            // état initial des boutons
             btnOpen.IsEnabled = true;
             btnClose.IsEnabled = false;
-
             RefreshPorts();
             UpdateUI();
         }
@@ -73,33 +68,25 @@ namespace AppTestEL418
                 if (currentState < etapeImages.Length)
                     imgEtape.Source = new BitmapImage(new Uri(etapeImages[currentState]));
             }
-            catch
-            {
-                imgEtape.Source = null;
-            }
+            catch { imgEtape.Source = null; }
 
             panelPer.Visibility = (currentState == 1) ? Visibility.Visible : Visibility.Collapsed;
             panelDips.Visibility = (currentState == 3 || currentState == 4) ? Visibility.Visible : Visibility.Collapsed;
             panelInps.Visibility = (currentState == 5 || currentState == 6) ? Visibility.Visible : Visibility.Collapsed;
 
-            if (currentState == 3 || currentState == 4)
-                UpdateDips(dips);
-
-            if (currentState == 5 || currentState == 6)
-                UpdateInps(inps);
+            if (currentState == 3 || currentState == 4) UpdateDips(dips);
+            if (currentState == 5 || currentState == 6) UpdateInps(inps);
         }
 
         private void BtnNextStep_Click(object sender, RoutedEventArgs e)
         {
-            if (currentState < etapeMessages.Length - 1)
-                currentState++;
+            if (currentState < etapeMessages.Length - 1) currentState++;
             UpdateUI();
         }
 
         private void BtnPrevStep_Click(object sender, RoutedEventArgs e)
         {
-            if (currentState > 0)
-                currentState--;
+            if (currentState > 0) currentState--;
             UpdateUI();
         }
 
@@ -132,46 +119,67 @@ namespace AppTestEL418
             try
             {
                 if (cmbPorts.SelectedItem == null || cmbPorts.SelectedItem.ToString().Contains("Aucun"))
-                { MessageBox.Show("Sélectionnez un port valide !"); return; }
+                {
+                    MessageBox.Show("Sélectionnez un port valide !");
+                    return;
+                }
 
                 string selectedPort = cmbPorts.SelectedItem.ToString();
 
                 if (serialPort != null && serialPort.IsOpen)
                 {
-                    if (serialPort.PortName == selectedPort) { Log($"Le port {selectedPort} est déjà ouvert."); btnOpen.IsEnabled = false; btnClose.IsEnabled = true; return; }
-                    try { serialPort.DataReceived -= SerialPort_DataReceived; serialPort.Close(); serialPort.Dispose(); } catch { }
+                    if (serialPort.PortName == selectedPort)
+                    {
+                        Log($"Le port {selectedPort} est déjà ouvert.");
+                        btnOpen.IsEnabled = false;
+                        btnClose.IsEnabled = true;
+                        return;
+                    }
+                    try
+                    {
+                        serialPort.DataReceived -= SerialPort_DataReceived;
+                        serialPort.Close();
+                        serialPort.Dispose();
+                    }
+                    catch { }
                     serialPort = null;
                 }
 
-                if (serialPort == null) serialPort = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One);
-                else serialPort.PortName = selectedPort;
+                // Création du port avec config
+                serialPort = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One);
+                //serialPort.NewLine = "\r\n"; // Important pour que ReadLine() marche
+                serialPort.Encoding = System.Text.Encoding.ASCII; // Encodage texte ASCII (sécurité)
 
-                serialPort.DataReceived -= SerialPort_DataReceived;
                 serialPort.DataReceived += SerialPort_DataReceived;
-
                 serialPort.Open();
+
                 ellipseStatus.Fill = Brushes.Green;
                 Log($"Port {serialPort.PortName} ouvert.");
                 btnOpen.IsEnabled = false;
                 btnClose.IsEnabled = true;
             }
-            catch (Exception ex) { MessageBox.Show("Erreur ouverture port : " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur ouverture port : " + ex.Message);
+            }
         }
+
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (serialPort == null) { Log("Aucun port ouvert."); btnOpen.IsEnabled = true; btnClose.IsEnabled = false; ellipseStatus.Fill = Brushes.Red; return; }
+                if (serialPort == null)
+                { Log("Aucun port ouvert."); btnOpen.IsEnabled = true; btnClose.IsEnabled = false; ellipseStatus.Fill = Brushes.Red; return; }
 
                 try { if (serialPort.IsOpen) { serialPort.DataReceived -= SerialPort_DataReceived; serialPort.Close(); } }
                 catch (Exception exClose) { Log("Erreur pendant la fermeture: " + exClose.Message); }
                 try { serialPort.Dispose(); } catch { }
                 serialPort = null;
+
                 ellipseStatus.Fill = Brushes.Red;
                 Log("Port fermé.");
-                btnOpen.IsEnabled = true;
-                btnClose.IsEnabled = false;
+                btnOpen.IsEnabled = true; btnClose.IsEnabled = false;
             }
             catch (Exception ex) { MessageBox.Show("Erreur fermeture port : " + ex.Message); }
         }
@@ -189,15 +197,41 @@ namespace AppTestEL418
             try
             {
                 if (serialPort == null || !serialPort.IsOpen) return;
-
                 string message = string.Empty;
-                try { message = serialPort.ReadLine(); } catch (TimeoutException) { return; }
+                try { message = serialPort.ReadExisting(); } catch (TimeoutException) { return; }
 
                 Dispatcher.Invoke(() =>
                 {
                     Log("Reçu: " + message);
 
-                    // DIPs
+                    // ---- Détection automatique de l’étape ----
+                    string cleanedMessage = message.Replace("-", "").Trim(); // supprimer tirets et espaces
+                    int idx = cleanedMessage.IndexOf("ETAPE", StringComparison.OrdinalIgnoreCase);
+                    if (idx >= 0)
+                    {
+                        idx += 5; // juste après "ETAPE"
+                                  // sauter les espaces
+                        while (idx < cleanedMessage.Length && char.IsWhiteSpace(cleanedMessage[idx])) idx++;
+
+                        string numberPart = "";
+                        while (idx < cleanedMessage.Length && char.IsDigit(cleanedMessage[idx]))
+                        {
+                            numberPart += cleanedMessage[idx];
+                            idx++;
+                        }
+
+                        if (int.TryParse(numberPart, out int step))
+                        {
+                            if (step >= 0 && step < etapeMessages.Length)
+                            {
+                                currentState = step;
+                                UpdateUI();
+                                Log($"Changement d'étape automatique : {step}");
+                            }
+                        }
+                    }
+
+                    // ---- Gestion DIP ----
                     if ((currentState == 3 || currentState == 4) && message.Contains("DIP"))
                     {
                         for (int i = 0; i < 8; i++) dips[i] = false;
@@ -209,8 +243,8 @@ namespace AppTestEL418
                             {
                                 if (parts[i].Equals("DIP", StringComparison.OrdinalIgnoreCase) && i + 1 < parts.Length)
                                 {
-                                    if (int.TryParse(parts[i + 1], out int dipNum))
-                                        if (dipNum >= 1 && dipNum <= 8) dips[dipNum - 1] = true; // ON
+                                    if (int.TryParse(parts[i + 1], out int dipNum) && dipNum >= 1 && dipNum <= 8)
+                                        dips[dipNum - 1] = true;
                                 }
                             }
                         }
@@ -224,7 +258,7 @@ namespace AppTestEL418
                         UpdateDips(dips);
                     }
 
-                    // Entrées
+                    // ---- Gestion Entrées ----
                     if ((currentState == 5 || currentState == 6) && message.Contains("Entree"))
                     {
                         for (int i = 0; i < 3; i++) inps[i] = false;
@@ -236,8 +270,8 @@ namespace AppTestEL418
                             {
                                 if (parts[i].Equals("Entree", StringComparison.OrdinalIgnoreCase) && i + 1 < parts.Length)
                                 {
-                                    if (int.TryParse(parts[i + 1], out int entreeNum))
-                                        if (entreeNum >= 1 && entreeNum <= 3) inps[entreeNum - 1] = true;
+                                    if (int.TryParse(parts[i + 1], out int entreeNum) && entreeNum >= 1 && entreeNum <= 3)
+                                        inps[entreeNum - 1] = true;
                                 }
                             }
                         }
@@ -253,6 +287,7 @@ namespace AppTestEL418
             }
             catch (Exception ex) { Dispatcher.Invoke(() => Log("Erreur réception: " + ex.Message)); }
         }
+
 
         private void UpdateDips(bool[] dips)
         {
