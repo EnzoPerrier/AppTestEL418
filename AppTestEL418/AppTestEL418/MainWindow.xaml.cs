@@ -106,6 +106,22 @@ namespace AppTestEL418
             else MessageBox.Show("Le PER doit contenir 8 chiffres.");
         }
 
+        // Détéction touche "Entrée" pour envoi PER
+        private void TxtPer_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(currentState == 1)
+            {
+                if (e.Key == System.Windows.Input.Key.Enter)
+                {
+                    BtnSendPer_Click(sender, e); // réutilise la même logique que le bouton
+                    e.Handled = true; // empêche le "ding" système quand on appuie sur Entrée
+                }
+
+            }
+            
+        }
+
+
         private void Log(string msg)
         {
             txtLog.AppendText($"{DateTime.Now:HH:mm:ss} - {msg}\n");
@@ -297,7 +313,7 @@ namespace AppTestEL418
                 TextBlock txt = new TextBlock
                 {
                     Text = $"{i + 1}: {(dips[i] ? "ON" : "OFF")}",
-                    FontSize = 17,
+                    FontSize = 22,
                     FontWeight = FontWeights.Bold,
                     Margin = new Thickness(10),
                     Foreground = ((currentState == 3 && !dips[i]) || (currentState == 4 && dips[i])) ? Brushes.LimeGreen : Brushes.Red
@@ -314,7 +330,7 @@ namespace AppTestEL418
                 TextBlock txt = new TextBlock
                 {
                     Text = $"{i + 1}: {(inps[i] ? "ON" : "OFF")}",
-                    FontSize = 17,
+                    FontSize = 22,
                     FontWeight = FontWeights.Bold,
                     Margin = new Thickness(10),
                     Foreground = ((currentState == 5 && !inps[i]) || (currentState == 6 && inps[i])) ? Brushes.LimeGreen : Brushes.Red

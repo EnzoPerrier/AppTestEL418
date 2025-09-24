@@ -69,7 +69,8 @@
                      Width="150" 
                      FontSize="20"
                      Margin="0,0,10,0"
-                     MaxLength="8"/>
+                     MaxLength="8"
+                     KeyDown="TxtPer_KeyDown"/>
             <Button x:Name="btnSendPer" Content="Envoyer PER" Width="120" Click="BtnSendPer_Click"/>
         </StackPanel>
 
@@ -100,7 +101,15 @@
         </StackPanel>
 
         <!-- Log console / trames reçues -->
-        <TextBox x:Name="txtLog" Grid.Row="5" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
-                 IsReadOnly="True" TextWrapping="Wrap" Background="Black" Foreground="Lime"/>
+        <Border Grid.Row="5" CornerRadius="10" Background="Black" BorderThickness="2" BorderBrush="#3A86FF">
+            <TextBox x:Name="txtLog"
+             AcceptsReturn="True"
+             VerticalScrollBarVisibility="Auto"
+             IsReadOnly="True"
+             TextWrapping="Wrap"
+             Background="Transparent"
+             Foreground="Lime"
+             BorderThickness="0"/>
+        </Border>
     </Grid>
 </Window>
