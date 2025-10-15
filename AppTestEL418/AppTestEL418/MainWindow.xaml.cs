@@ -106,21 +106,14 @@ namespace AppTestEL418
             else MessageBox.Show("Le PER doit contenir 8 chiffres.");
         }
 
-        // Détéction touche "Entrée" pour envoi PER
         private void TxtPer_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if(currentState == 1)
+            if (currentState == 1 && e.Key == System.Windows.Input.Key.Enter)
             {
-                if (e.Key == System.Windows.Input.Key.Enter)
-                {
-                    BtnSendPer_Click(sender, e); // réutilise la même logique que le bouton
-                    e.Handled = true; // empêche le "ding" système quand on appuie sur Entrée
-                }
-
+                BtnSendPer_Click(sender, e);
+                e.Handled = true;
             }
-            
         }
-
 
         private void Log(string msg)
         {
@@ -151,20 +144,18 @@ namespace AppTestEL418
                         btnClose.IsEnabled = true;
                         return;
                     }
-                    try
-                    {
-                        serialPort.DataReceived -= SerialPort_DataReceived;
-                        serialPort.Close();
-                        serialPort.Dispose();
-                    }
-                    catch { }
+
+                    serialPort.DataReceived -= SerialPort_DataReceived;
+                    serialPort.Close();
+                    serialPort.Dispose();
                     serialPort = null;
                 }
 
-                // Création du port avec config
-                serialPort = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One);
-                //serialPort.NewLine = "\r\n"; // Important pour que ReadLine() marche
-                serialPort.Encoding = System.Text.Encoding.ASCII; // Encodage texte ASCII (sécurité)
+                serialPort = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One)
+                {
+                    Encoding = System.Text.Encoding.ASCII,
+                    NewLine = "\r" // ou "\r\n" selon ton appareil
+                };
 
                 serialPort.DataReceived += SerialPort_DataReceived;
                 serialPort.Open();
@@ -180,32 +171,46 @@ namespace AppTestEL418
             }
         }
 
-
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (serialPort == null)
-                { Log("Aucun port ouvert."); btnOpen.IsEnabled = true; btnClose.IsEnabled = false; ellipseStatus.Fill = Brushes.Red; return; }
-
-                try { if (serialPort.IsOpen) { serialPort.DataReceived -= SerialPort_DataReceived; serialPort.Close(); } }
-                catch (Exception exClose) { Log("Erreur pendant la fermeture: " + exClose.Message); }
-                try { serialPort.Dispose(); } catch { }
-                serialPort = null;
+                if (serialPort != null)
+                {
+                    if (serialPort.IsOpen)
+                    {
+                        serialPort.DataReceived -= SerialPort_DataReceived;
+                        serialPort.Close();
+                    }
+                    serialPort.Dispose();
+                    serialPort = null;
+                }
 
                 ellipseStatus.Fill = Brushes.Red;
                 Log("Port fermé.");
-                btnOpen.IsEnabled = true; btnClose.IsEnabled = false;
+                btnOpen.IsEnabled = true;
+                btnClose.IsEnabled = false;
             }
-            catch (Exception ex) { MessageBox.Show("Erreur fermeture port : " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur fermeture port : " + ex.Message);
+            }
         }
 
         private void RefreshPorts()
         {
             cmbPorts.Items.Clear();
             string[] ports = SerialPort.GetPortNames();
-            if (ports.Length > 0) { foreach (string p in ports) cmbPorts.Items.Add(p); cmbPorts.SelectedIndex = 0; }
-            else { cmbPorts.Items.Add("Aucun port trouvé"); cmbPorts.SelectedIndex = 0; }
+            if (ports.Length > 0)
+            {
+                foreach (string p in ports) cmbPorts.Items.Add(p);
+                cmbPorts.SelectedIndex = 0;
+            }
+            else
+            {
+                cmbPorts.Items.Add("Aucun port trouvé");
+                cmbPorts.SelectedIndex = 0;
+            }
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -213,97 +218,101 @@ namespace AppTestEL418
             try
             {
                 if (serialPort == null || !serialPort.IsOpen) return;
-                string message = string.Empty;
-                try { message = serialPort.ReadExisting(); } catch (TimeoutException) { return; }
 
-                Dispatcher.Invoke(() =>
+                while (serialPort.BytesToRead > 0)
                 {
-                    Log("Reçu: " + message);
+                    string message = serialPort.ReadLine(); // garantit une trame complète
 
-                    // ---- Détection automatique de l’étape ----
-                    string cleanedMessage = message.Replace("-", "").Trim(); // supprimer tirets et espaces
-                    int idx = cleanedMessage.IndexOf("ETAPE", StringComparison.OrdinalIgnoreCase);
-                    if (idx >= 0)
+                    Dispatcher.Invoke(() =>
                     {
-                        idx += 5; // juste après "ETAPE"
-                                  // sauter les espaces
-                        while (idx < cleanedMessage.Length && char.IsWhiteSpace(cleanedMessage[idx])) idx++;
-
-                        string numberPart = "";
-                        while (idx < cleanedMessage.Length && char.IsDigit(cleanedMessage[idx]))
-                        {
-                            numberPart += cleanedMessage[idx];
-                            idx++;
-                        }
-
-                        if (int.TryParse(numberPart, out int step))
-                        {
-                            if (step >= 0 && step < etapeMessages.Length)
-                            {
-                                currentState = step;
-                                UpdateUI();
-                                Log($"Changement d'étape automatique : {step}");
-                            }
-                        }
-                    }
-
-                    // ---- Gestion DIP ----
-                    if ((currentState == 3 || currentState == 4) && message.Contains("DIP"))
-                    {
-                        for (int i = 0; i < 8; i++) dips[i] = false;
-
-                        if (message.Contains("ERROR"))
-                        {
-                            string[] parts = message.Split(new char[] { ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
-                            for (int i = 0; i < parts.Length; i++)
-                            {
-                                if (parts[i].Equals("DIP", StringComparison.OrdinalIgnoreCase) && i + 1 < parts.Length)
-                                {
-                                    if (int.TryParse(parts[i + 1], out int dipNum) && dipNum >= 1 && dipNum <= 8)
-                                        dips[dipNum - 1] = true;
-                                }
-                            }
-                        }
-
-                        if (message.IndexOf("OFF --> OK", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                            message.IndexOf("DIP a OFF", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            for (int i = 0; i < 8; i++) dips[i] = false;
-                        }
-
-                        UpdateDips(dips);
-                    }
-
-                    // ---- Gestion Entrées ----
-                    if ((currentState == 5 || currentState == 6) && message.Contains("Entree"))
-                    {
-                        for (int i = 0; i < 3; i++) inps[i] = false;
-
-                        if (message.Contains("ERROR"))
-                        {
-                            string[] parts = message.Split(new char[] { ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
-                            for (int i = 0; i < parts.Length; i++)
-                            {
-                                if (parts[i].Equals("Entree", StringComparison.OrdinalIgnoreCase) && i + 1 < parts.Length)
-                                {
-                                    if (int.TryParse(parts[i + 1], out int entreeNum) && entreeNum >= 1 && entreeNum <= 3)
-                                        inps[entreeNum - 1] = true;
-                                }
-                            }
-                        }
-
-                        if (message.IndexOf("Entrees a OFF", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            for (int i = 0; i < 3; i++) inps[i] = false;
-                        }
-
-                        UpdateInps(inps);
-                    }
-                });
+                        Log("Reçu: " + message);
+                        HandleSerialMessage(message);
+                    });
+                }
             }
-            catch (Exception ex) { Dispatcher.Invoke(() => Log("Erreur réception: " + ex.Message)); }
+            catch (Exception ex)
+            {
+                Dispatcher.Invoke(() => Log("Erreur réception: " + ex.Message));
+            }
         }
 
+        private void HandleSerialMessage(string message)
+        {
+            string cleanedMessage = message.Replace("-", "").Trim();
+            int idx = cleanedMessage.IndexOf("ETAPE", StringComparison.OrdinalIgnoreCase);
+            if (idx >= 0)
+            {
+                idx += 5;
+                while (idx < cleanedMessage.Length && char.IsWhiteSpace(cleanedMessage[idx])) idx++;
+
+                string numberPart = "";
+                while (idx < cleanedMessage.Length && char.IsDigit(cleanedMessage[idx]))
+                    numberPart += cleanedMessage[idx++];
+
+                if (int.TryParse(numberPart, out int step))
+                {
+                    if (step >= 0 && step < etapeMessages.Length)
+                    {
+                        currentState = step;
+                        UpdateUI();
+                        Log($"Changement d'étape automatique : {step}");
+                    }
+                }
+            }
+
+            // Gestion DIP
+            if ((currentState == 3 || currentState == 4) && message.Contains("DIP"))
+            {
+                Array.Fill(dips, false);
+
+                if (message.Contains("ERROR"))
+                {
+                    string[] parts = message.Split(new char[] { ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < parts.Length; i++)
+                    {
+                        if (parts[i].Equals("DIP", StringComparison.OrdinalIgnoreCase) && i + 1 < parts.Length)
+                        {
+                            if (int.TryParse(parts[i + 1], out int dipNum) && dipNum >= 1 && dipNum <= 8)
+                                dips[dipNum - 1] = true;
+                        }
+                    }
+                }
+
+                if (message.Contains("OFF --> OK", StringComparison.OrdinalIgnoreCase) ||
+                    message.Contains("DIP a OFF", StringComparison.OrdinalIgnoreCase))
+                {
+                    Array.Fill(dips, false);
+                }
+
+                UpdateDips(dips);
+            }
+
+            // Gestion Entrées
+            if ((currentState == 5 || currentState == 6) && message.Contains("Entree"))
+            {
+                Array.Fill(inps, false);
+
+                if (message.Contains("ERROR"))
+                {
+                    string[] parts = message.Split(new char[] { ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < parts.Length; i++)
+                    {
+                        if (parts[i].Equals("Entree", StringComparison.OrdinalIgnoreCase) && i + 1 < parts.Length)
+                        {
+                            if (int.TryParse(parts[i + 1], out int entreeNum) && entreeNum >= 1 && entreeNum <= 3)
+                                inps[entreeNum - 1] = true;
+                        }
+                    }
+                }
+
+                if (message.Contains("Entrees a OFF", StringComparison.OrdinalIgnoreCase))
+                {
+                    Array.Fill(inps, false);
+                }
+
+                UpdateInps(inps);
+            }
+        }
 
         private void UpdateDips(bool[] dips)
         {
