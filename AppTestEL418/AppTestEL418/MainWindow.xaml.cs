@@ -33,7 +33,7 @@ namespace AppTestEL418
         {
             "pack://application:,,,/Images/etape0.png",
             "pack://application:,,,/Images/etape1.png",
-            "pack://application:,,,/Images/etape2.png",
+            //"pack://application:,,,/Images/etape2.png",
             "pack://application:,,,/Images/etape3.png",
             "pack://application:,,,/Images/etape4.png",
             "pack://application:,,,/Images/etape5.png",
@@ -71,6 +71,7 @@ namespace AppTestEL418
             catch { imgEtape.Source = null; }
 
             panelPer.Visibility = (currentState == 1) ? Visibility.Visible : Visibility.Collapsed;
+            panelSts.Visibility = (currentState == 2) ? Visibility.Visible : Visibility.Collapsed;
             panelDips.Visibility = (currentState == 3 || currentState == 4) ? Visibility.Visible : Visibility.Collapsed;
             panelInps.Visibility = (currentState == 5 || currentState == 6) ? Visibility.Visible : Visibility.Collapsed;
 
@@ -78,7 +79,8 @@ namespace AppTestEL418
             if (currentState == 5 || currentState == 6) UpdateInps(inps);
         }
 
-        private void BtnNextStep_Click(object sender, RoutedEventArgs e)
+        //DEBUG
+        private void BtnNextStep_Click(object sender, RoutedEventArgs e) 
         {
             if (currentState < etapeMessages.Length - 1) currentState++;
             UpdateUI();

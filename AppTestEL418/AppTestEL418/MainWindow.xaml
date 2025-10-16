@@ -63,7 +63,7 @@
         <!-- Image étape -->
         <Image x:Name="imgEtape" Grid.Row="2" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Width="650" Height="422"/>
 
-        <!-- Zone saisie PER (visible étape 2 uniquement) -->
+        <!-- Zone saisie PER (visible étape 1 uniquement) -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" Visibility="Collapsed" x:Name="panelPer">
             <TextBox x:Name="txtPer" 
                      Width="150" 
@@ -72,6 +72,22 @@
                      MaxLength="8"
                      KeyDown="TxtPer_KeyDown"/>
             <Button x:Name="btnSendPer" Content="Envoyer PER" Width="120" Click="BtnSendPer_Click"/>
+        </StackPanel>
+
+        <!-- Zone STS (visible étape 2 uniquement) -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" Visibility="Collapsed" x:Name="panelSts">
+            <WrapPanel Margin="5" Orientation="Vertical">
+                <TextBlock Text="Soft=" 
+                           Background="LightBlue" 
+                           Padding="10" 
+                           Margin="5"/>
+                <TextBlock Text="Texte 2" 
+                           Background="LightGreen" 
+                           Padding="10" 
+                           Margin="5"/>
+                <TextBlock Text="Texte 3" Background="LightCoral" Padding="10" Margin="5"/>
+                <TextBlock Text="Texte 4" Background="Khaki" Padding="10" Margin="5"/>
+            </WrapPanel>
         </StackPanel>
 
         <!-- Zone DIPs -->
