@@ -75,19 +75,8 @@
         </StackPanel>
 
         <!-- Zone STS (visible étape 2 uniquement) -->
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" Visibility="Collapsed" x:Name="panelSts">
-            <WrapPanel Margin="5" Orientation="Vertical">
-                <TextBlock Text="Soft=" 
-                           Background="LightBlue" 
-                           Padding="10" 
-                           Margin="5"/>
-                <TextBlock Text="Texte 2" 
-                           Background="LightGreen" 
-                           Padding="10" 
-                           Margin="5"/>
-                <TextBlock Text="Texte 3" Background="LightCoral" Padding="10" Margin="5"/>
-                <TextBlock Text="Texte 4" Background="Khaki" Padding="10" Margin="5"/>
-            </WrapPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="LEFT"  Visibility="Collapsed" x:Name="panelSts">
+            <WrapPanel x:Name="wrapSTS" HorizontalAlignment="Left" Orientation="Vertical" />
         </StackPanel>
 
         <!-- Zone DIPs -->

@@ -16,8 +16,8 @@ namespace AppTestEL418
         {
             "ETAPE 0 : Appuyer sur le bouton pour commencer",
             "ETAPE 1 : Entrez le PER (8 digits)",
-            "ETAPE 2 : Test STS en cours...",
-            "ETAPE 3 : Mettez les DIPs à OFF et appuyez sur le bouton",
+            "ETAPE 2 : Test STS",
+            "ETAPE 3 : DIPs à OFF",
             "ETAPE 4 : Mettez les DIPs à ON et reset",
             "ETAPE 5 : Test entrées à OFF",
             "ETAPE 6 : Test entrées à ON",
@@ -27,6 +27,23 @@ namespace AppTestEL418
             "ETAPE 10 : Test cellule NUIT",
             "ETAPE 11 : Test infrarouge",
             "ETAPE 12 : Test accu"
+        };
+
+        private readonly string[] instructionMessages =
+        {
+            "Branchez la carte, alimentez le banc en 12.5V et appuyez ensuite sur le BP valider pour commencer",
+            "Mesurez la base de temps à l'aide du fréquencemètre, reportez la dans la zone de texte ci-dessous\nSi la base de temps commence par 99xxxxx et ne contient que 7 digits, ajoutez un '0' à la fin",
+            "Test STS auto en  cours ...",
+            "Mettez tous les DIPs à OFF et appuyez sur le BP valider du banc de test",
+            "Mettez tous les DIPs à ON et appuyer sur le BP reset de la carte, ensuite appuyez sur le BP valider du banc de test",
+            "Test auto des entrées à OFF en cours ...",
+            "Test auto des entrées à ON en cours ...",
+            "Vérifiez que toutes les LEDs du décompteur s'allument correctement à la bonne luminosité",
+            "Vérifiez que tous les défauts ampoules apparaissent les uns après les autres, ensuite appuyez sur le bouton valider si OK",
+            "Test cellule JOUR en cours, appuyez sur le BP valider une fois la cellule exposée à la lumière",
+            "Test cellule NUIT en cours, appuyez sur le BP valider une fois la cellule exposée à l'obscurité",
+            "Vérifiez l'IR en utilisant la télécommande",
+            "Vérifiez que le message 'supression batterie' s'affiche à l'écran LCD'"
         };
 
         private readonly string[] etapeImages =
@@ -61,7 +78,7 @@ namespace AppTestEL418
         private void UpdateUI()
         {
             txtEtape.Text = $"---- {etapeMessages[currentState]} ----";
-            txtInstructions.Text = etapeMessages[currentState];
+            txtInstructions.Text = instructionMessages[currentState];
 
             try
             {
@@ -75,6 +92,7 @@ namespace AppTestEL418
             panelDips.Visibility = (currentState == 3 || currentState == 4) ? Visibility.Visible : Visibility.Collapsed;
             panelInps.Visibility = (currentState == 5 || currentState == 6) ? Visibility.Visible : Visibility.Collapsed;
 
+            if (currentState == 2) UpdateSTS("hello");
             if (currentState == 3 || currentState == 4) UpdateDips(dips);
             if (currentState == 5 || currentState == 6) UpdateInps(inps);
         }
@@ -223,7 +241,7 @@ namespace AppTestEL418
 
                 while (serialPort.BytesToRead > 0)
                 {
-                    string message = serialPort.ReadLine(); // garantit une trame complète
+                    string message = serialPort.ReadLine(); // permet de garantir une trame intègre (sansdécoupage)
 
                     Dispatcher.Invoke(() =>
                     {
@@ -316,6 +334,24 @@ namespace AppTestEL418
             }
         }
 
+        //Mise à jour STS
+        private void UpdateSTS(string STSmsg)
+        {
+            wrapSTS.Children.Clear();
+            
+                TextBlock txt = new TextBlock
+                {
+                    Text = $"STS = {1+2}",
+                    FontSize = 22,
+                    FontWeight = FontWeights.Bold,
+                    Margin = new Thickness(10)
+                };
+                wrapSTS.Children.Add(txt);
+            
+
+        }
+
+        // Mise à jour  affichage état  des dips
         private void UpdateDips(bool[] dips)
         {
             wrapDips.Children.Clear();
@@ -333,6 +369,7 @@ namespace AppTestEL418
             }
         }
 
+        //Mise à Jour affichage Entrées
         private void UpdateInps(bool[] inps)
         {
             wrapInps.Children.Clear();
