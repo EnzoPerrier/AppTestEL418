@@ -92,7 +92,6 @@ namespace AppTestEL418
             panelDips.Visibility = (currentState == 3 || currentState == 4) ? Visibility.Visible : Visibility.Collapsed;
             panelInps.Visibility = (currentState == 5 || currentState == 6) ? Visibility.Visible : Visibility.Collapsed;
 
-            if (currentState == 2) UpdateSTS("hello");
             if (currentState == 3 || currentState == 4) UpdateDips(dips);
             if (currentState == 5 || currentState == 6) UpdateInps(inps);
         }
@@ -280,6 +279,12 @@ namespace AppTestEL418
                 }
             }
 
+            // Gestion STS
+            if ((currentState == 2) && message.Contains("STS"))
+            {
+                UpdateSTS(message);
+            }
+
             // Gestion DIP
             if ((currentState == 3 || currentState == 4) && message.Contains("DIP"))
             {
@@ -341,7 +346,7 @@ namespace AppTestEL418
             
                 TextBlock txt = new TextBlock
                 {
-                    Text = $"STS = {1+2}",
+                    Text = STSmsg,
                     FontSize = 22,
                     FontWeight = FontWeights.Bold,
                     Margin = new Thickness(10)

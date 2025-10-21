@@ -37,9 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <SplashScreen Include="Images\splash.png">
+    <Resource Include="Images\splash.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </SplashScreen>
+    </Resource>
   </ItemGroup>
 
 </Project>
