@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj": {}
+    "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj": {}
   },
   "projects": {
-    "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj": {
+    "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
+        "projectUniqueName": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
         "projectName": "AppTestEL418",
-        "projectPath": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
-        "packagesPath": "C:\\Users\\katia\\.nuget\\packages\\",
-        "outputPath": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\obj\\",
+        "projectPath": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
+        "packagesPath": "C:\\Users\\sav02\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "E:\\logiciels\\VisualStudioIDE\\Composants\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\katia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sav02\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -74,7 +74,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
