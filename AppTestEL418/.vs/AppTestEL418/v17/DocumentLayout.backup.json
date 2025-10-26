@@ -30,8 +30,12 @@
       "DocumentGroups": [
         {
           "DockedHeight": 260,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -42,8 +46,7 @@
               "RelativeToolTip": "AppTestEL418\\App.xaml.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAgwBQAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-21T20:10:19.586Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-21T20:10:19.586Z"
             },
             {
               "$type": "Document",
@@ -54,8 +57,7 @@
               "ToolTip": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\App.xaml",
               "RelativeToolTip": "AppTestEL418\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-09T20:48:33.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T20:48:33.465Z"
             },
             {
               "$type": "Document",
@@ -77,7 +79,7 @@
               "RelativeDocumentMoniker": "AppTestEL418\\MainWindow.xaml.cs",
               "ToolTip": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml.cs",
               "RelativeToolTip": "AppTestEL418\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAIAwwF8AAABFAAAAAAAAAA==",
+              "ViewState": "AgIAAFEAAAAAAAAAAIAwwF8AAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-23T21:27:24.917Z",
               "EditorCaption": ""
