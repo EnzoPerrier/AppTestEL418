@@ -120,3 +120,5 @@ Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\App
 Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Debug\net8.0-windows\AppTestEL418.pdb
 Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Debug\net8.0-windows\AppTestEL418.genruntimeconfig.cache
 Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Debug\net8.0-windows\ref\AppTestEL418.dll
+Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Debug\net8.0-windows\TerminalWindow.baml
+Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Debug\net8.0-windows\TerminalWindow.g.cs

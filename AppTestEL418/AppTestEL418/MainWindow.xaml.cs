@@ -374,7 +374,22 @@ namespace AppTestEL418
             }
         }
 
-        //Mise à Jour affichage Entrées
+        // Mode terminal
+        private void BtnOpenTerminal_Click(object sender, RoutedEventArgs e)
+        {
+            if (serialPort == null || !serialPort.IsOpen)
+            {
+                MessageBox.Show("Veuillez ouvrir un port série avant d'accéder au terminal !");
+                return;
+            }
+
+            TerminalWindow termWin = new TerminalWindow(serialPort);
+            termWin.Owner = this;
+            termWin.Show();
+        }
+
+
+        // Mise à Jour affichage Entrées
         private void UpdateInps(bool[] inps)
         {
             wrapInps.Children.Clear();
