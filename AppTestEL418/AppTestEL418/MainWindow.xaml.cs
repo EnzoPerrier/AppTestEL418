@@ -11,6 +11,8 @@ namespace AppTestEL418
     {
         private int currentState = 0;
         private SerialPort serialPort;
+        private TerminalWindow terminalWindow = null;
+
 
         private readonly string[] etapeMessages =
         {
@@ -234,26 +236,33 @@ namespace AppTestEL418
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            if (serialPort == null || !serialPort.IsOpen) return;
+
             try
             {
-                if (serialPort == null || !serialPort.IsOpen) return;
+                string message = serialPort.ReadLine(); // lit une ligne complète
 
-                while (serialPort.BytesToRead > 0)
+                if (!string.IsNullOrEmpty(message))
                 {
-                    string message = serialPort.ReadLine(); // permet de garantir une trame intègre (sansdécoupage)
-
-                    Dispatcher.Invoke(() =>
+                    // BeginInvoke non bloquant → évite freeze
+                    Dispatcher.BeginInvoke(new Action(() =>
                     {
-                        Log("Reçu: " + message);
+                        txtLog.AppendText($"{DateTime.Now:HH:mm:ss} - {message}\n");
+                        txtLog.ScrollToEnd();
                         HandleSerialMessage(message);
-                    });
+                    }));
                 }
             }
             catch (Exception ex)
             {
-                Dispatcher.Invoke(() => Log("Erreur réception: " + ex.Message));
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    txtLog.AppendText("Erreur réception: " + ex.Message + "\n");
+                    txtLog.ScrollToEnd();
+                }));
             }
         }
+
 
         private void HandleSerialMessage(string message)
         {
@@ -383,10 +392,33 @@ namespace AppTestEL418
                 return;
             }
 
-            TerminalWindow termWin = new TerminalWindow(serialPort);
-            termWin.Owner = this;
-            termWin.Show();
+            // Si le terminal est déjà ouvert, on ne le recrée pas
+            if (terminalWindow != null && terminalWindow.IsVisible)
+            {
+                terminalWindow.Focus();
+                return;
+            }
+
+            // On détache la réception principale pour pas que ça s'affiche sur les 2 pages
+            serialPort.DataReceived -= SerialPort_DataReceived;
+
+            // On ouvre le terminal avec le port actif
+            terminalWindow = new TerminalWindow(serialPort);
+            terminalWindow.Owner = this;
+
+            // Quand le terminal se ferme, on rattache à nouveau la réception principale
+            terminalWindow.Closed += (s, args) =>
+            {
+                if (serialPort != null && serialPort.IsOpen)
+                {
+                    serialPort.DataReceived += SerialPort_DataReceived;
+                }
+                terminalWindow = null;
+            };
+
+            terminalWindow.Show();
         }
+
 
 
         // Mise à Jour affichage Entrées
@@ -406,5 +438,24 @@ namespace AppTestEL418
                 wrapInps.Children.Add(txt);
             }
         }
+
+        // A la fermeture de la fenêtre 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                if (serialPort != null)
+                {
+                    serialPort.DataReceived -= SerialPort_DataReceived;
+                    if (serialPort.IsOpen)
+                        serialPort.Close();
+                    serialPort.Dispose();
+                    serialPort = null;
+                }
+            }
+            catch { }
+        }
+
+
     }
 }

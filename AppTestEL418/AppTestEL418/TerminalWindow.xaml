@@ -5,7 +5,8 @@
         Height="600" Width="800"
         Background="#1E1E1E"
         Foreground="White"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        Icon="Images/logo.ico">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>

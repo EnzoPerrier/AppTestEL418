@@ -24,7 +24,7 @@ namespace AppTestEL418
                 Dispatcher.Invoke(() =>
                 {
                     txtReceive.AppendText(data);
-                    txtReceive.ScrollToEnd(); // 🔹 défilement automatique
+                    txtReceive.ScrollToEnd(); // défilement automatique
                     scrollViewer.ScrollToEnd();
                 });
             }
@@ -59,7 +59,7 @@ namespace AppTestEL418
             try
             {
                 serialPort.WriteLine(msg);
-                txtReceive.AppendText($"> {msg}\n");
+                //txtReceive.AppendText($"\n\r> {msg}\n"); //Affiche la commande envoyée par l'utilisateur
                 scrollViewer.ScrollToEnd();
                 txtSend.Clear();
             }
