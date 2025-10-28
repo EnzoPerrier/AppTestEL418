@@ -87,7 +87,7 @@
         </StackPanel>
 
         <!-- Image étape -->
-        <Image x:Name="imgEtape" Grid.Row="2" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Width="650" Height="422"/>
+        <Image x:Name="imgEtape" Grid.Row="2" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="1300" MaxHeight="844"/>
 
         <!-- Zone saisie PER (visible étape 1 uniquement) -->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" Visibility="Collapsed" x:Name="panelPer">
