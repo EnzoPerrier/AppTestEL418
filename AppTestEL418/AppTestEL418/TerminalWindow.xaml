@@ -14,23 +14,42 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Titre -->
-        <TextBlock Text="Terminal"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,10"/>
+        <!-- En-tête : bouton Clear à gauche + titre centré -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,10" LastChildFill="True">
+            <Button Content="Effacer"
+                    Width="100"
+                    Height="30"
+                    Background="#2D2F36"
+                    Foreground="White"
+                    BorderBrush="#3A86FF"
+                    BorderThickness="2"
+                    FontWeight="Bold"
+                    DockPanel.Dock="Left"
+                    Margin="0,0,10,0"
+                    Click="BtnClear_Click"/>
+            <TextBlock Text="Terminal"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </DockPanel>
 
         <!-- Zone réception -->
         <Border Grid.Row="1" CornerRadius="10" Background="Black" BorderThickness="2" BorderBrush="#3A86FF">
-            <TextBox x:Name="txtReceive"
-                     AcceptsReturn="True"
-                     VerticalScrollBarVisibility="Auto"
-                     IsReadOnly="True"
-                     TextWrapping="Wrap"
-                     Background="Transparent"
-                     Foreground="Lime"
-                     BorderThickness="0"/>
+            <ScrollViewer x:Name="scrollViewer"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <TextBox x:Name="txtReceive"
+                         AcceptsReturn="True"
+                         IsReadOnly="True"
+                         TextWrapping="Wrap"
+                         Background="Transparent"
+                         Foreground="White"
+                         BorderThickness="0"
+                         VerticalScrollBarVisibility="Disabled"
+                         Padding="5"/>
+            </ScrollViewer>
         </Border>
 
         <!-- Zone d’envoi -->

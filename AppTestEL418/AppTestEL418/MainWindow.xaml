@@ -137,7 +137,7 @@
              IsReadOnly="True"
              TextWrapping="Wrap"
              Background="Transparent"
-             Foreground="Lime"
+             Foreground="White"
              BorderThickness="0"/>
         </Border>
     </Grid>

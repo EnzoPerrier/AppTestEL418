@@ -24,12 +24,17 @@ namespace AppTestEL418
                 Dispatcher.Invoke(() =>
                 {
                     txtReceive.AppendText(data);
-                    txtReceive.ScrollToEnd();
+                    txtReceive.ScrollToEnd(); // 🔹 défilement automatique
+                    scrollViewer.ScrollToEnd();
                 });
             }
             catch (Exception ex)
             {
-                Dispatcher.Invoke(() => txtReceive.AppendText($"\n[Erreur réception] {ex.Message}\n"));
+                Dispatcher.Invoke(() =>
+                {
+                    txtReceive.AppendText($"\n[Erreur réception] {ex.Message}\n");
+                    scrollViewer.ScrollToEnd();
+                });
             }
         }
 
@@ -50,18 +55,23 @@ namespace AppTestEL418
         private void SendData()
         {
             string msg = txtSend.Text.Trim();
-            if (string.IsNullOrEmpty(msg)) return;
 
             try
             {
                 serialPort.WriteLine(msg);
                 txtReceive.AppendText($"> {msg}\n");
+                scrollViewer.ScrollToEnd();
                 txtSend.Clear();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erreur d'envoi : {ex.Message}");
             }
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            txtReceive.Clear();
         }
 
         protected override void OnClosed(EventArgs e)
