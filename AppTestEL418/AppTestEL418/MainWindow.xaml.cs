@@ -175,7 +175,7 @@ namespace AppTestEL418
                 serialPort = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One)
                 {
                     Encoding = System.Text.Encoding.ASCII,
-                    NewLine = "\r" // ou "\r\n" selon ton appareil
+                    NewLine = "\r" 
                 };
 
                 serialPort.DataReceived += SerialPort_DataReceived;
@@ -236,7 +236,7 @@ namespace AppTestEL418
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (serialPort == null || !serialPort.IsOpen) return;
+            if (serialPort == null || !serialPort.IsOpen) return; // Si pas de port série
 
             try
             {
@@ -244,7 +244,7 @@ namespace AppTestEL418
 
                 if (!string.IsNullOrEmpty(message))
                 {
-                    // BeginInvoke non bloquant → évite freeze
+                    // BeginInvoke non bloquant évite freeze
                     Dispatcher.BeginInvoke(new Action(() =>
                     {
                         txtLog.AppendText($"{DateTime.Now:HH:mm:ss} - {message}\n");
