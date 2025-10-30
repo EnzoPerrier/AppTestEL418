@@ -1730,23 +1730,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sav02\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\katia\\.nuget\\packages\\": {},
+    "E:\\logiciels\\VisualStudioIDE\\Composants\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
+      "projectUniqueName": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
       "projectName": "AppTestEL418",
-      "projectPath": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
-      "packagesPath": "C:\\Users\\sav02\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\obj\\",
+      "projectPath": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
+      "packagesPath": "C:\\Users\\katia\\.nuget\\packages\\",
+      "outputPath": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "E:\\logiciels\\VisualStudioIDE\\Composants\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\sav02\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\katia\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1803,7 +1803,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
