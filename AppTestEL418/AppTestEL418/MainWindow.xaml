@@ -28,6 +28,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <!-- Zone COM à gauche -->
@@ -65,18 +66,32 @@
 
             <!-- Bouton Terminal à droite -->
             <Button x:Name="btnOpenTerminal"
-            Grid.Column="1"
-            Content="Terminal"
-            Width="150"
-            Margin="10,0,0,0"
-            Background="#2D2F36"
-            Foreground="White"
-            BorderBrush="#3A86FF"
-            BorderThickness="2"
-            FontWeight="Bold"
-            Click="BtnOpenTerminal_Click"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"/>
+                    Grid.Column="1"
+                    Content="Terminal"
+                    Width="120"
+                    Margin="10,0,0,0"
+                    Background="#2D2F36"
+                    Foreground="White"
+                    BorderBrush="#3A86FF"
+                    BorderThickness="2"
+                    FontWeight="Bold"
+                    Click="BtnOpenTerminal_Click"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"/>
+            
+            <!-- Bouton à propos/GitHub -->
+            <Border Grid.Column="2"
+                    Margin="10,0,0,0"
+                    Background="Transparent"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Cursor="Hand"
+                    MouseLeftButtonUp="BtnAbout_Click">
+                        <Image Source="/Images/GitHubLogo.png"
+                        Width="26" Height="26"
+                        Stretch="Uniform"
+                        ToolTip="Voir le projet sur GitHub"/>
+            </Border>
         </Grid>
 
 
@@ -107,21 +122,11 @@
 
         <!-- Zone DIPs -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" x:Name="panelDips" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="État des DIPs:" 
-               FontSize="22" 
-               FontWeight="Bold" 
-               Foreground="White" 
-               HorizontalAlignment="Center" Margin="0,0,0,20"/>
             <WrapPanel x:Name="wrapDips" HorizontalAlignment="Center" />
         </StackPanel>
 
         <!-- Zone INPs -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" x:Name="panelInps" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="État des INPs:" 
-       FontSize="24" 
-       FontWeight="Bold" 
-       Foreground="White" 
-       HorizontalAlignment="Center" Margin="0,0,0,20"/>
             <WrapPanel x:Name="wrapInps" HorizontalAlignment="Center" />
         </StackPanel>
 

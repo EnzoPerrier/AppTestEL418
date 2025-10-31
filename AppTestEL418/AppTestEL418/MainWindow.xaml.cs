@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace AppTestEL418
 {
@@ -13,14 +15,21 @@ namespace AppTestEL418
         private SerialPort serialPort;
         private TerminalWindow terminalWindow = null;
 
+        // DIPs
+        private bool[] dipsError = new bool[8];      // true = NOK (rouge), false = OK (vert)
+        private bool[] dipsPhysical = new bool[8];   // true = ON, false = OFF (valeur lue)
+
+        // Entrées
+        private bool[] inpsError = new bool[3];
+        private bool[] inpsPhysical = new bool[3];
 
         private readonly string[] etapeMessages =
         {
-            "ETAPE 0 : Appuyer sur le bouton pour commencer",
+            "ETAPE 0 : Appuyez sur le bouton pour commencer",
             "ETAPE 1 : Entrez le PER (8 digits)",
             "ETAPE 2 : Test STS",
             "ETAPE 3 : DIPs à OFF",
-            "ETAPE 4 : Mettez les DIPs à ON et reset",
+            "ETAPE 4 : DIPs à ON",
             "ETAPE 5 : Test entrées à OFF",
             "ETAPE 6 : Test entrées à ON",
             "ETAPE 7 : Test décompteur",
@@ -34,7 +43,7 @@ namespace AppTestEL418
         private readonly string[] instructionMessages =
         {
             "Branchez la carte, alimentez le banc en 12.5V et appuyez ensuite sur le BP valider pour commencer",
-            "Mesurez la base de temps à l'aide du fréquencemètre, reportez la dans la zone de texte ci-dessous\nSi la base de temps commence par 99xxxxx et ne contient que 7 digits, ajoutez un '0' à la fin",
+            "Mesurez la base de temps à l'aide du fréquencemètre, reportez la dans la zone de texte ci-dessous\nSi la base de temps commence par 99xxxxx et ne contient que 7 digits, ajoutez un '0' à la fin (ex: 99999980)",
             "Test STS auto en  cours ...",
             "Mettez tous les DIPs à OFF et appuyez sur le BP valider du banc de test",
             "Mettez tous les DIPs à ON et appuyer sur le BP reset de la carte, ensuite appuyez sur le BP valider du banc de test",
@@ -65,14 +74,19 @@ namespace AppTestEL418
             "pack://application:,,,/Images/etape12.png"
         };
 
-        private bool[] dips = new bool[8];
-        private bool[] inps = new bool[3];
-
         public MainWindow()
         {
             InitializeComponent();
+
+            // par défaut tout NOK (pour éviter confusion)
+            Array.Fill(dipsError, true);
+            Array.Fill(dipsPhysical, false);
+            Array.Fill(inpsError, true);
+            Array.Fill(inpsPhysical, false);
+
             btnOpen.IsEnabled = true;
             btnClose.IsEnabled = false;
+
             RefreshPorts();
             UpdateUI();
         }
@@ -94,12 +108,31 @@ namespace AppTestEL418
             panelDips.Visibility = (currentState == 3 || currentState == 4) ? Visibility.Visible : Visibility.Collapsed;
             panelInps.Visibility = (currentState == 5 || currentState == 6) ? Visibility.Visible : Visibility.Collapsed;
 
-            if (currentState == 3 || currentState == 4) UpdateDips(dips);
-            if (currentState == 5 || currentState == 6) UpdateInps(inps);
+            // Lorsque l'on entre sur les étapes DIPs on initialise en NOK (attente de la carte)
+            if (currentState == 3 || currentState == 4)
+            {
+                for (int i = 0; i < dipsError.Length; i++)
+                {
+                    dipsError[i] = true;      // NOK par défaut
+                    dipsPhysical[i] = false;  // valeur inconnue => OFF affiché
+                }
+                UpdateDips();
+            }
+
+            // Même principe pour INPs
+            if (currentState == 5 || currentState == 6)
+            {
+                for (int i = 0; i < inpsError.Length; i++)
+                {
+                    inpsError[i] = true;
+                    inpsPhysical[i] = false;
+                }
+                UpdateInps();
+            }
         }
 
         //DEBUG
-        private void BtnNextStep_Click(object sender, RoutedEventArgs e) 
+        private void BtnNextStep_Click(object sender, RoutedEventArgs e)
         {
             if (currentState < etapeMessages.Length - 1) currentState++;
             UpdateUI();
@@ -116,7 +149,7 @@ namespace AppTestEL418
             string per = txtPer.Text.Trim();
             if (per.Length == 8)
             {
-                string message = $"PER={per}\r";
+                string message = per;
                 if (serialPort != null && serialPort.IsOpen)
                 {
                     try { serialPort.WriteLine(message); Log("PER envoyé : " + message); }
@@ -166,16 +199,21 @@ namespace AppTestEL418
                         return;
                     }
 
-                    serialPort.DataReceived -= SerialPort_DataReceived;
-                    serialPort.Close();
-                    serialPort.Dispose();
+                    // nettoyage si ancien port ouvert
+                    try
+                    {
+                        serialPort.DataReceived -= SerialPort_DataReceived;
+                        if (serialPort.IsOpen) serialPort.Close();
+                        serialPort.Dispose();
+                    }
+                    catch { }
                     serialPort = null;
                 }
 
                 serialPort = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One)
                 {
                     Encoding = System.Text.Encoding.ASCII,
-                    NewLine = "\r" 
+                    NewLine = "\r" // ou "\r\n" selon ton appareil
                 };
 
                 serialPort.DataReceived += SerialPort_DataReceived;
@@ -198,12 +236,16 @@ namespace AppTestEL418
             {
                 if (serialPort != null)
                 {
-                    if (serialPort.IsOpen)
+                    try
                     {
                         serialPort.DataReceived -= SerialPort_DataReceived;
-                        serialPort.Close();
+                        if (serialPort.IsOpen) serialPort.Close();
+                        serialPort.Dispose();
                     }
-                    serialPort.Dispose();
+                    catch (Exception exClose)
+                    {
+                        Log("Erreur pendant la fermeture: " + exClose.Message);
+                    }
                     serialPort = null;
                 }
 
@@ -263,10 +305,12 @@ namespace AppTestEL418
             }
         }
 
-
         private void HandleSerialMessage(string message)
         {
-            string cleanedMessage = message.Replace("-", "").Trim();
+            // Nettoyage simple
+            string cleanedMessage = message.Replace("\r", "").Replace("\n", "").Trim();
+
+            // Détection ETAPE
             int idx = cleanedMessage.IndexOf("ETAPE", StringComparison.OrdinalIgnoreCase);
             if (idx >= 0)
             {
@@ -283,68 +327,84 @@ namespace AppTestEL418
                     {
                         currentState = step;
                         UpdateUI();
-                        Log($"Changement d'étape automatique : {step}");
+                        //Log($"Changement d'étape automatique : {step}"); //Debug
                     }
                 }
             }
 
-            // Gestion STS
-            if ((currentState == 2) && message.Contains("STS"))
+            // --- Gestion DIPs ---
+            if ((currentState == 3 || currentState == 4) && cleanedMessage.IndexOf("DIP", StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                UpdateSTS(message);
-            }
-
-            // Gestion DIP
-            if ((currentState == 3 || currentState == 4) && message.Contains("DIP"))
-            {
-                Array.Fill(dips, false);
-
-                if (message.Contains("ERROR"))
+                // Si message global "DIP ... --> OK" on met tout OK (vert)
+                if (cleanedMessage.IndexOf("--> OK", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    cleanedMessage.IndexOf("DIPs OK", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    cleanedMessage.IndexOf("DIP a OFF --> OK", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    string[] parts = message.Split(new char[] { ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
-                    for (int i = 0; i < parts.Length; i++)
+                    for (int i = 0; i < dipsError.Length; i++)
                     {
-                        if (parts[i].Equals("DIP", StringComparison.OrdinalIgnoreCase) && i + 1 < parts.Length)
+                        dipsError[i] = false;
+                    }
+                }
+                else
+                {
+                    // Parse toutes les occurrences "DIP <num> a <ON|OFF>"
+                    var matches = Regex.Matches(cleanedMessage, @"DIP\s+(\d+)\s+a\s+(ON|OFF)", RegexOptions.IgnoreCase);
+                    foreach (Match m in matches)
+                    {
+                        if (m.Groups.Count >= 3 &&
+                            int.TryParse(m.Groups[1].Value, out int dipNum) &&
+                            dipNum >= 1 && dipNum <= 8)
                         {
-                            if (int.TryParse(parts[i + 1], out int dipNum) && dipNum >= 1 && dipNum <= 8)
-                                dips[dipNum - 1] = true;
+                            string state = m.Groups[2].Value.ToUpper(); // "ON" ou "OFF"
+                            bool isOn = state == "ON";
+
+                            // attendu : true si ON attendu (étape 4), false si OFF attendu (étape 3)
+                            bool attenduOn = (currentState == 4);
+
+                            // erreur si l'état réel != attendu
+                            bool isError = (isOn != attenduOn);
+
+                            dipsPhysical[dipNum - 1] = isOn;
+                            dipsError[dipNum - 1] = isError;
                         }
                     }
                 }
 
-                if (message.Contains("OFF --> OK", StringComparison.OrdinalIgnoreCase) ||
-                    message.Contains("DIP a OFF", StringComparison.OrdinalIgnoreCase))
-                {
-                    Array.Fill(dips, false);
-                }
-
-                UpdateDips(dips);
+                UpdateDips();
             }
 
-            // Gestion Entrées
-            if ((currentState == 5 || currentState == 6) && message.Contains("Entree"))
+            // --- Gestion Entrées ---
+            if ((currentState == 5 || currentState == 6) && cleanedMessage.IndexOf("ENTREE", StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                Array.Fill(inps, false);
-
-                if (message.Contains("ERROR"))
+                if (cleanedMessage.IndexOf("--> OK", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    cleanedMessage.IndexOf("Entrees a OFF --> OK", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    cleanedMessage.IndexOf("Entrees OK", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    string[] parts = message.Split(new char[] { ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
-                    for (int i = 0; i < parts.Length; i++)
+                    for (int i = 0; i < inpsError.Length; i++)
+                        inpsError[i] = false;
+                }
+                else
+                {
+                    var matchesInp = Regex.Matches(cleanedMessage, @"Entree\s+(\d+)\s+a\s+(ON|OFF)", RegexOptions.IgnoreCase);
+                    foreach (Match m in matchesInp)
                     {
-                        if (parts[i].Equals("Entree", StringComparison.OrdinalIgnoreCase) && i + 1 < parts.Length)
+                        if (m.Groups.Count >= 3 &&
+                            int.TryParse(m.Groups[1].Value, out int num) &&
+                            num >= 1 && num <= 3)
                         {
-                            if (int.TryParse(parts[i + 1], out int entreeNum) && entreeNum >= 1 && entreeNum <= 3)
-                                inps[entreeNum - 1] = true;
+                            string state = m.Groups[2].Value.ToUpper();
+                            bool isOn = state == "ON";
+                            bool attenduOn = (currentState == 6); // étape 6 attend ON
+
+                            bool isError = (isOn != attenduOn);
+
+                            inpsPhysical[num - 1] = isOn;
+                            inpsError[num - 1] = isError;
                         }
                     }
                 }
 
-                if (message.Contains("Entrees a OFF", StringComparison.OrdinalIgnoreCase))
-                {
-                    Array.Fill(inps, false);
-                }
-
-                UpdateInps(inps);
+                UpdateInps();
             }
         }
 
@@ -352,36 +412,124 @@ namespace AppTestEL418
         private void UpdateSTS(string STSmsg)
         {
             wrapSTS.Children.Clear();
-            
-                TextBlock txt = new TextBlock
-                {
-                    Text = STSmsg,
-                    FontSize = 22,
-                    FontWeight = FontWeights.Bold,
-                    Margin = new Thickness(10)
-                };
-                wrapSTS.Children.Add(txt);
-            
 
+            TextBlock txt = new TextBlock
+            {
+                Text = STSmsg,
+                FontSize = 22,
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(10)
+            };
+            wrapSTS.Children.Add(txt);
         }
 
-        // Mise à jour  affichage état  des dips
-        private void UpdateDips(bool[] dips)
+        // Mise à jour affichage état des DIPs
+        private void UpdateDips()
         {
             wrapDips.Children.Clear();
-            for (int i = 0; i < dips.Length; i++)
+
+            for (int i = 0; i < dipsError.Length; i++)
             {
-                TextBlock txt = new TextBlock
+                StackPanel dipPanel = new StackPanel
                 {
-                    Text = $"{i + 1}: {(dips[i] ? "ON" : "OFF")}",
-                    FontSize = 22,
-                    FontWeight = FontWeights.Bold,
+                    Orientation = Orientation.Vertical,
                     Margin = new Thickness(10),
-                    Foreground = ((currentState == 3 && !dips[i]) || (currentState == 4 && dips[i])) ? Brushes.LimeGreen : Brushes.Red
+                    HorizontalAlignment = HorizontalAlignment.Center
                 };
-                wrapDips.Children.Add(txt);
+
+                // Voyant : rouge si erreur, vert sinon
+                Ellipse led = new Ellipse
+                {
+                    Width = 40,
+                    Height = 40,
+                    Fill = dipsError[i] ? Brushes.Red : Brushes.LimeGreen,
+                    Stroke = Brushes.White,
+                    StrokeThickness = 2
+                };
+
+                TextBlock dipLabel = new TextBlock
+                {
+                    Text = $"DIP {i + 1}",
+                    Foreground = Brushes.White,
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 14,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 5, 0, 0)
+                };
+
+                string stateText = dipsError[i] ? "NOK" : "OK";
+                Brush stateColor = dipsError[i] ? Brushes.Red : Brushes.LimeGreen;
+
+                TextBlock stateLabel = new TextBlock
+                {
+                    Text = stateText,
+                    Foreground = stateColor,
+                    FontSize = 12,
+                    FontWeight = FontWeights.SemiBold,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                dipPanel.Children.Add(led);
+                dipPanel.Children.Add(dipLabel);
+                dipPanel.Children.Add(stateLabel);
+
+                wrapDips.Children.Add(dipPanel);
             }
         }
+
+
+        private void UpdateInps()
+        {
+            wrapInps.Children.Clear();
+
+            for (int i = 0; i < inpsError.Length; i++)
+            {
+                StackPanel inpPanel = new StackPanel
+                {
+                    Orientation = Orientation.Vertical,
+                    Margin = new Thickness(10),
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                Ellipse led = new Ellipse
+                {
+                    Width = 40,
+                    Height = 40,
+                    Fill = inpsError[i] ? Brushes.Red : Brushes.LimeGreen,
+                    Stroke = Brushes.White,
+                    StrokeThickness = 2
+                };
+
+                TextBlock inpLabel = new TextBlock
+                {
+                    Text = $"Entrée {i + 1}",
+                    Foreground = Brushes.White,
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 14,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 5, 0, 0)
+                };
+
+                string stateText = inpsError[i] ? "NOK" : "OK";
+                Brush stateColor = inpsError[i] ? Brushes.Red : Brushes.LimeGreen;
+
+                TextBlock stateLabel = new TextBlock
+                {
+                    Text = stateText,
+                    Foreground = stateColor,
+                    FontSize = 12,
+                    FontWeight = FontWeights.SemiBold,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                inpPanel.Children.Add(led);
+                inpPanel.Children.Add(inpLabel);
+                inpPanel.Children.Add(stateLabel);
+
+                wrapInps.Children.Add(inpPanel);
+            }
+        }
+
 
         // Mode terminal
         private void BtnOpenTerminal_Click(object sender, RoutedEventArgs e)
@@ -400,7 +548,7 @@ namespace AppTestEL418
             }
 
             // On détache la réception principale pour pas que ça s'affiche sur les 2 pages
-            serialPort.DataReceived -= SerialPort_DataReceived;
+            try { serialPort.DataReceived -= SerialPort_DataReceived; } catch { }
 
             // On ouvre le terminal avec le port actif
             terminalWindow = new TerminalWindow(serialPort);
@@ -409,34 +557,16 @@ namespace AppTestEL418
             // Quand le terminal se ferme, on rattache à nouveau la réception principale
             terminalWindow.Closed += (s, args) =>
             {
-                if (serialPort != null && serialPort.IsOpen)
+                try
                 {
-                    serialPort.DataReceived += SerialPort_DataReceived;
+                    if (serialPort != null && serialPort.IsOpen)
+                        serialPort.DataReceived += SerialPort_DataReceived;
                 }
+                catch { }
                 terminalWindow = null;
             };
 
             terminalWindow.Show();
-        }
-
-
-
-        // Mise à Jour affichage Entrées
-        private void UpdateInps(bool[] inps)
-        {
-            wrapInps.Children.Clear();
-            for (int i = 0; i < inps.Length; i++)
-            {
-                TextBlock txt = new TextBlock
-                {
-                    Text = $"{i + 1}: {(inps[i] ? "ON" : "OFF")}",
-                    FontSize = 22,
-                    FontWeight = FontWeights.Bold,
-                    Margin = new Thickness(10),
-                    Foreground = ((currentState == 5 && !inps[i]) || (currentState == 6 && inps[i])) ? Brushes.LimeGreen : Brushes.Red
-                };
-                wrapInps.Children.Add(txt);
-            }
         }
 
         // A la fermeture de la fenêtre 
@@ -456,6 +586,21 @@ namespace AppTestEL418
             catch { }
         }
 
-
+        //Bouton à propos
+        private void BtnAbout_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "https://github.com/EnzoPerrier/AppTestEL418",
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors de l'ouverture du lien : " + ex.Message);
+            }
+        }
     }
 }
