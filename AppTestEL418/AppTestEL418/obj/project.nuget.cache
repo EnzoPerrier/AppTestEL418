@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3RutcRckscs=",
+  "dgSpecHash": "WmtVlWj3bkA=",
   "success": true,
   "projectFilePath": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
   "expectedPackageFiles": [
@@ -21,7 +21,8 @@
     "C:\\Users\\sav02\\.nuget\\packages\\runtime.native.system.io.ports\\9.0.9\\runtime.native.system.io.ports.9.0.9.nupkg.sha512",
     "C:\\Users\\sav02\\.nuget\\packages\\runtime.osx-arm64.runtime.native.system.io.ports\\9.0.9\\runtime.osx-arm64.runtime.native.system.io.ports.9.0.9.nupkg.sha512",
     "C:\\Users\\sav02\\.nuget\\packages\\runtime.osx-x64.runtime.native.system.io.ports\\9.0.9\\runtime.osx-x64.runtime.native.system.io.ports.9.0.9.nupkg.sha512",
-    "C:\\Users\\sav02\\.nuget\\packages\\system.io.ports\\9.0.9\\system.io.ports.9.0.9.nupkg.sha512"
+    "C:\\Users\\sav02\\.nuget\\packages\\system.io.ports\\9.0.9\\system.io.ports.9.0.9.nupkg.sha512",
+    "C:\\Users\\sav02\\.nuget\\packages\\wpfanimatedgif\\2.0.2\\wpfanimatedgif.2.0.2.nupkg.sha512"
   ],
   "logs": []
 }

@@ -129,6 +129,12 @@ namespace AppTestEL418
                 }
                 UpdateInps();
             }
+            
+            // TST (Test décompteur Etape 7)
+            if(currentState == 7)
+            {
+                TST_LED_Anim.Visibility = Visibility.Visible;
+            }else TST_LED_Anim.Visibility=Visibility.Collapsed;
         }
 
         //DEBUG
@@ -406,6 +412,16 @@ namespace AppTestEL418
 
                 UpdateInps();
             }
+
+            // --- Test STS ---
+            if(currentState ==  3 && cleanedMessage.IndexOf("STS OK", StringComparison.OrdinalIgnoreCase) >= 0) // Si STS OK
+            { 
+                LoadingBarSTS.Visibility = Visibility.Collapsed;
+            }
+            if (currentState == 3 && cleanedMessage.IndexOf("STS OK", StringComparison.OrdinalIgnoreCase) >= 0) // Si STS NK
+            {
+                LoadingBarSTS.Visibility = Visibility.Collapsed;
+            }
         }
 
         //Mise à jour STS
@@ -420,6 +436,7 @@ namespace AppTestEL418
                 FontWeight = FontWeights.Bold,
                 Margin = new Thickness(10)
             };
+            LoadingBarSTS.Visibility = Visibility.Collapsed;
             wrapSTS.Children.Add(txt);
         }
 

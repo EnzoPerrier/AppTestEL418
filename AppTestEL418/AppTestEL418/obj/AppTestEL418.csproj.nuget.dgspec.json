@@ -53,6 +53,10 @@
             "System.IO.Ports": {
               "target": "Package",
               "version": "[9.0.9, )"
+            },
+            "WpfAnimatedGif": {
+              "target": "Package",
+              "version": "[2.0.2, )"
             }
           },
           "imports": [

@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\EL418_TST_ANIM.gif" />
     <None Remove="images\etape0.png" />
     <None Remove="Images\etape1.png" />
     <None Remove="Images\etape2.png" />
@@ -21,9 +22,13 @@
 
   <ItemGroup>
     <PackageReference Include="System.IO.Ports" Version="9.0.9" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\EL418_TST_ANIM.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="images\etape0.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

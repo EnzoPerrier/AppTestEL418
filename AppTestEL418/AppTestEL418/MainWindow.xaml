@@ -1,6 +1,7 @@
 ﻿<Window x:Class="AppTestEL418.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Title="TEST EL418 APP" Height="700" Width="900"
         Background="#1E1E1E" Foreground="White"
         WindowStartupLocation="CenterScreen"
@@ -118,6 +119,13 @@
         <!-- Zone STS (visible étape 2 uniquement) -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="LEFT"  Visibility="Collapsed" x:Name="panelSts">
             <WrapPanel x:Name="wrapSTS" HorizontalAlignment="Left" Orientation="Vertical" />
+            <ProgressBar 
+                x:Name="LoadingBarSTS"
+                IsIndeterminate="True"
+                Width="300"
+                Height="20"
+                Foreground="#3A86FF" 
+                HorizontalAlignment="Center"/>
         </StackPanel>
 
         <!-- Zone DIPs -->
@@ -129,6 +137,14 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" x:Name="panelInps" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center">
             <WrapPanel x:Name="wrapInps" HorizontalAlignment="Center" />
         </StackPanel>
+
+        <!-- Zone TST -->
+        <Grid x:Name="TST_LED_Anim" Grid.Row="2" Visibility="Collapsed">
+            <Image gif:ImageBehavior.AnimatedSource="Images/EL418_TST_ANIM.gif"
+               Stretch="Uniform"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        </Grid>
 
         <!-- Boutons test Étape + / Étape - -->
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">

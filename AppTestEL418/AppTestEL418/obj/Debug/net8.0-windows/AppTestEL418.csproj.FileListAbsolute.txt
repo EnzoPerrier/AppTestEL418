@@ -124,3 +124,4 @@ C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\obj\Debug\net8.0
 C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\obj\Debug\net8.0-windows\AppTestEL418.pdb
 C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\obj\Debug\net8.0-windows\AppTestEL418.genruntimeconfig.cache
 C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\obj\Debug\net8.0-windows\ref\AppTestEL418.dll
+C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\bin\Debug\net8.0-windows\WpfAnimatedGif.dll
