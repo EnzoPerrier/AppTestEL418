@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.IO.Ports;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -6,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AppTestEL418
 {
@@ -339,82 +341,72 @@ namespace AppTestEL418
             }
 
             // --- Gestion DIPs ---
-            if ((currentState == 3 || currentState == 4) && cleanedMessage.IndexOf("DIP", StringComparison.OrdinalIgnoreCase) >= 0)
+            if ((currentState == 3 || currentState == 4) && cleanedMessage.Contains("DIP", StringComparison.OrdinalIgnoreCase))
             {
-                // Si message global "DIP ... --> OK" on met tout OK (vert)
-                if (cleanedMessage.IndexOf("--> OK", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    cleanedMessage.IndexOf("DIPs OK", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    cleanedMessage.IndexOf("DIP a OFF --> OK", StringComparison.OrdinalIgnoreCase) >= 0)
+                bool attenduOn = (currentState == 4); // Étape 3 = OFF attendu ; Étape 4 = ON attendu
+
+                // Exemple reçu : "ERROR: DIP 7 a ON !" ou "ERROR: DIP 7 a OFF !" ou "DIP a OFF --> OK"
+                var m = Regex.Match(cleanedMessage, @"DIP\s*(\d+)\s*a\s*(ON|OFF)", RegexOptions.IgnoreCase);
+
+                if (m.Success && int.TryParse(m.Groups[1].Value, out int dipNum))
                 {
+                    bool isOn = m.Groups[2].Value.Equals("ON", StringComparison.OrdinalIgnoreCase);
+                    bool isError = (isOn != attenduOn);
+
+                    // Mise à jour uniquement du DIP concerné
+                    if (dipNum >= 1 && dipNum <= dipsError.Length)
+                    {
+                        dipsError[dipNum - 1] = isError;
+                        dipsPhysical[dipNum - 1] = isOn;
+                    }
+
+                    Log($"[DEBUG] DIP {dipNum}: {(isOn ? "ON" : "OFF")} attendu {(attenduOn ? "ON" : "OFF")} → {(isError ? "NOK" : "OK")}"); //DEBUG
+                }
+                else if (cleanedMessage.Contains("--> OK", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Tout est conforme → tout vert
                     for (int i = 0; i < dipsError.Length; i++)
                     {
                         dipsError[i] = false;
+                        dipsPhysical[i] = attenduOn;
                     }
-                }
-                else
-                {
-                    // Parse toutes les occurrences "DIP <num> a <ON|OFF>"
-                    var matches = Regex.Matches(cleanedMessage, @"DIP\s+(\d+)\s+a\s+(ON|OFF)", RegexOptions.IgnoreCase);
-                    foreach (Match m in matches)
-                    {
-                        if (m.Groups.Count >= 3 &&
-                            int.TryParse(m.Groups[1].Value, out int dipNum) &&
-                            dipNum >= 1 && dipNum <= 8)
-                        {
-                            string state = m.Groups[2].Value.ToUpper(); // "ON" ou "OFF"
-                            bool isOn = state == "ON";
-
-                            // attendu : true si ON attendu (étape 4), false si OFF attendu (étape 3)
-                            bool attenduOn = (currentState == 4);
-
-                            // erreur si l'état réel != attendu
-                            bool isError = (isOn != attenduOn);
-
-                            dipsPhysical[dipNum - 1] = isOn;
-                            dipsError[dipNum - 1] = isError;
-                        }
-                    }
+                    Log("[DEBUG] Tous les DIPs conformes"); //DEBUG
                 }
 
                 UpdateDips();
             }
 
+
+
+
+
             // --- Gestion Entrées ---
-            if ((currentState == 5 || currentState == 6) && cleanedMessage.IndexOf("ENTREE", StringComparison.OrdinalIgnoreCase) >= 0)
+            if ((currentState == 5 || currentState == 6) && cleanedMessage.Contains("Entree"))
             {
-                if (cleanedMessage.IndexOf("--> OK", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    cleanedMessage.IndexOf("Entrees a OFF --> OK", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    cleanedMessage.IndexOf("Entrees OK", StringComparison.OrdinalIgnoreCase) >= 0)
+                bool attenduOn = (currentState == 6); // Étape 5 = OFF attendu, Étape 6 = ON attendu
+                for (int i = 0; i < 3; i++) inpsError[i] = true;
+
+                if (cleanedMessage.Contains("ERROR"))
                 {
-                    for (int i = 0; i < inpsError.Length; i++)
-                        inpsError[i] = false;
-                }
-                else
-                {
-                    var matchesInp = Regex.Matches(cleanedMessage, @"Entree\s+(\d+)\s+a\s+(ON|OFF)", RegexOptions.IgnoreCase);
-                    foreach (Match m in matchesInp)
+                    Match m = Regex.Match(cleanedMessage, @"Entree\s+(\d+)\s+a\s+(ON|OFF)", RegexOptions.IgnoreCase);
+                    if (m.Success && int.TryParse(m.Groups[1].Value, out int inpNum))
                     {
-                        if (m.Groups.Count >= 3 &&
-                            int.TryParse(m.Groups[1].Value, out int num) &&
-                            num >= 1 && num <= 3)
-                        {
-                            string state = m.Groups[2].Value.ToUpper();
-                            bool isOn = state == "ON";
-                            bool attenduOn = (currentState == 6); // étape 6 attend ON
-
-                            bool isError = (isOn != attenduOn);
-
-                            inpsPhysical[num - 1] = isOn;
-                            inpsError[num - 1] = isError;
-                        }
+                        bool isOn = m.Groups[2].Value.Equals("ON", StringComparison.OrdinalIgnoreCase);
+                        bool isError = (isOn != attenduOn);
+                        inpsError[inpNum - 1] = isError;
                     }
+                }
+                else if (cleanedMessage.Contains("--> OK"))
+                {
+                    for (int i = 0; i < 3; i++) inpsError[i] = false;
                 }
 
                 UpdateInps();
             }
 
+
             // --- Test STS ---
-            if(currentState ==  3 && cleanedMessage.IndexOf("STS OK", StringComparison.OrdinalIgnoreCase) >= 0) // Si STS OK
+            if (currentState ==  3 && cleanedMessage.IndexOf("STS OK", StringComparison.OrdinalIgnoreCase) >= 0) // Si STS OK
             { 
                 LoadingBarSTS.Visibility = Visibility.Collapsed;
             }
