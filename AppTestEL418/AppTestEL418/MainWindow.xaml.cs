@@ -56,7 +56,7 @@ namespace AppTestEL418
             "Test cellule JOUR en cours, appuyez sur le BP valider une fois la cellule exposée à la lumière", // ETAPE 9
             "Test cellule NUIT en cours, appuyez sur le BP valider une fois la cellule exposée à l'obscurité", // ETAPE 10
             "Vérifiez l'IR en utilisant la télécommande", // ETAPE 11
-            "Vérifiez que le message 'supression batterie' s'affiche à l'écran LCD" // ETAPE 12
+            "Vérifiez que le message 'supression de batterie' s'affiche à l'écran LCD" // ETAPE 12
         };
 
         private readonly string[] etapeImages =
@@ -73,7 +73,7 @@ namespace AppTestEL418
             "pack://application:,,,/Images/CEL_JOUR.png", // ETAPE 9
             "pack://application:,,,/Images/CEL_NUIT.png", // ETAPE 10
             null, // ETAPE 11
-            null // ETAPE 12
+            "pack://application:,,,/Images/etape12.jpg" // ETAPE 12
         };
 
         public MainWindow()

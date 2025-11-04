@@ -15,6 +15,7 @@
     <None Remove="images\EL418_TST_ANIM.gif" />
     <None Remove="images\etape0.png" />
     <None Remove="Images\etape1.png" />
+    <None Remove="images\etape12.JPG" />
     <None Remove="Images\etape2.png" />
     <None Remove="Images\GitHubLogo.png" />
     <None Remove="Images\logo.ico" />
@@ -42,6 +43,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\etape1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\etape12.JPG">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\GitHubLogo.png" />
