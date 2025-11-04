@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Animation OPT\FULL_ON.png" />
+    <None Remove="Images\Animation OPT\ORANGE_OFF.png" />
+    <None Remove="Images\Animation OPT\ROUGE_OFF.png" />
+    <None Remove="Images\Animation OPT\VERT_OFF.png" />
     <None Remove="images\CEL_JOUR.png" />
     <None Remove="images\CEL_NUIT.png" />
     <None Remove="images\EL418_TST_ANIM.gif" />
@@ -19,7 +23,6 @@
     <None Remove="Images\etape2.png" />
     <None Remove="Images\GitHubLogo.png" />
     <None Remove="Images\logo.ico" />
-    <None Remove="images\OPT_ANIM.gif" />
     <None Remove="Images\splash.png" />
     <None Remove="Images\splash.png.png" />
   </ItemGroup>
@@ -30,6 +33,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Animation OPT\FULL_ON.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Animation OPT\ORANGE_OFF.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Animation OPT\ROUGE_OFF.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Animation OPT\VERT_OFF.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="images\CEL_JOUR.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -52,15 +67,18 @@
     <Resource Include="Images\logo.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="images\OPT_ANIM.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\splash.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\OPT_ANIM.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

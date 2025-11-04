@@ -129,13 +129,12 @@
 
         <!-- Zone STS (visible étape 2 uniquement) -->
         <StackPanel 
-    Grid.Row="2" 
-    Orientation="Vertical" 
-    HorizontalAlignment="Center"  
-    VerticalAlignment="Center"
-    Visibility="Collapsed" 
-    x:Name="panelSts">
-
+                Grid.Row="2" 
+                Orientation="Vertical" 
+                HorizontalAlignment="Center"  
+                VerticalAlignment="Center"
+                Visibility="Collapsed" 
+                x:Name="panelSts">
 
             <WrapPanel 
                 x:Name="wrapSTS" 
@@ -179,10 +178,50 @@
 
         <!-- Zone OPTIQUES -->
         <Grid x:Name="OPT_Anim" Grid.Row="2" Visibility="Collapsed">
-            <Image gif:ImageBehavior.AnimatedSource="Images/OPT_ANIM.gif"
-                Stretch="Uniform"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"/>
+            <Image 
+                x:Name="OptFullOn" 
+                Source="/Images/Animation OPT/FULL_ON.png"
+                Grid.Row="2" 
+                Stretch="Uniform" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                MaxWidth="1300" 
+                MaxHeight="844"
+                Visibility="Visible"/>
+            
+            <Image 
+                x:Name="OptRouge" 
+                Source="/Images/Animation OPT/ROUGE_OFF.png"
+                Grid.Row="2" 
+                Stretch="Uniform" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                MaxWidth="1300" 
+                MaxHeight="844"
+                Visibility="Collapsed"/>
+
+            <Image 
+                x:Name="OptOrange" 
+                Source="/Images/Animation OPT/ORANGE_OFF.png"
+                Grid.Row="2" 
+                Stretch="Uniform" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                MaxWidth="1300" 
+                MaxHeight="844"
+                Visibility="Collapsed"/>
+
+            <Image 
+                x:Name="OptVert" 
+                Source="/Images/Animation OPT/VERT_OFF.png"
+                Grid.Row="2" 
+                Stretch="Uniform" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                MaxWidth="1300" 
+                MaxHeight="844"
+                Visibility="Collapsed"/>
+
         </Grid>
 
         <!-- Boutons test Étape + / Étape - -->

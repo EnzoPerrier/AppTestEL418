@@ -352,32 +352,31 @@ namespace AppTestEL418
             {
                 bool attenduOn = (currentState == 4); // Étape 3 = OFF attendu ; Étape 4 = ON attendu
 
-                // Exemple reçu : "ERROR: DIP 7 a ON !" ou "ERROR: DIP 7 a OFF !" ou "DIP a OFF --> OK"
-                var m = Regex.Match(cleanedMessage, @"DIP\s*(\d+)\s*a\s*(ON|OFF)", RegexOptions.IgnoreCase);
-
-                if (m.Success && int.TryParse(m.Groups[1].Value, out int dipNum))
+                // Ne pas tout réinitialiser à chaque ligne : on ne modifie que les DIPs concernés
+                var matches = Regex.Matches(cleanedMessage, @"DIP\s*(\d+)\s*a\s*(ON|OFF)", RegexOptions.IgnoreCase);
+                foreach (Match m in matches)
                 {
-                    bool isOn = m.Groups[2].Value.Equals("ON", StringComparison.OrdinalIgnoreCase);
-                    bool isError = (isOn != attenduOn);
-
-                    // Mise à jour uniquement du DIP concerné
-                    if (dipNum >= 1 && dipNum <= dipsError.Length)
+                    if (int.TryParse(m.Groups[1].Value, out int dipNum) && dipNum >= 1 && dipNum <= dipsError.Length)
                     {
-                        dipsError[dipNum - 1] = isError;
-                        dipsPhysical[dipNum - 1] = isOn;
-                    }
+                        bool isOn = m.Groups[2].Value.Equals("ON", StringComparison.OrdinalIgnoreCase);
+                        bool isError = (isOn != attenduOn);
 
-                    Log($"[DEBUG] DIP {dipNum}: {(isOn ? "ON" : "OFF")} attendu {(attenduOn ? "ON" : "OFF")} → {(isError ? "NOK" : "OK")}"); //DEBUG
+                        dipsPhysical[dipNum - 1] = isOn;   // état réel lu
+                        dipsError[dipNum - 1] = isError;   // erreur ou non
+
+                        //Log($"[DEBUG] DIP {dipNum}: {(isOn ? "ON" : "OFF")} attendu {(attenduOn ? "ON" : "OFF")} → {(isError ? "NOK" : "OK")}");
+                    }
                 }
-                else if (cleanedMessage.Contains("--> OK", StringComparison.OrdinalIgnoreCase))
+
+                // Cas global : " --> OK" → tout est bon
+                if (cleanedMessage.Contains("--> OK", StringComparison.OrdinalIgnoreCase))
                 {
-                    // Tout est conforme donc tout vert
                     for (int i = 0; i < dipsError.Length; i++)
                     {
                         dipsError[i] = false;
                         dipsPhysical[i] = attenduOn;
                     }
-                    Log("[DEBUG] Tous les DIPs conformes"); //DEBUG
+                    //Log("[DEBUG] Tous les DIPs conformes");
                 }
 
                 UpdateDips();
@@ -386,40 +385,79 @@ namespace AppTestEL418
 
 
 
-
             // --- Gestion Entrées ---
-            if ((currentState == 5 || currentState == 6) && cleanedMessage.Contains("Entree"))
+            if ((currentState == 5 || currentState == 6) && cleanedMessage.Contains("IN", StringComparison.OrdinalIgnoreCase))
             {
-                bool attenduOn = (currentState == 6); // Étape 5 = OFF attendu, Étape 6 = ON attendu
-                for (int i = 0; i < 3; i++) inpsError[i] = true;
+                bool attenduOn = (currentState == 6); // Étape 5 = OFF attendu ; Étape 6 = ON attendu
 
-                if (cleanedMessage.Contains("ERROR"))
+                for (int i = 0; i < inpsError.Length; i++)
+                    inpsError[i] = true;
+
+                // Cas générique : "ERROR: IN X a ON" / "OK: IN X a OFF"
+                var matches = Regex.Matches(cleanedMessage, @"IN\s*(\d+)\s*a\s*(ON|OFF)", RegexOptions.IgnoreCase);
+                foreach (Match m in matches)
                 {
-                    Match m = Regex.Match(cleanedMessage, @"Entree\s+(\d+)\s+a\s+(ON|OFF)", RegexOptions.IgnoreCase);
-                    if (m.Success && int.TryParse(m.Groups[1].Value, out int inpNum))
+                    if (int.TryParse(m.Groups[1].Value, out int inpNum))
                     {
                         bool isOn = m.Groups[2].Value.Equals("ON", StringComparison.OrdinalIgnoreCase);
                         bool isError = (isOn != attenduOn);
-                        inpsError[inpNum - 1] = isError;
+                        if (inpNum >= 1 && inpNum <= inpsError.Length)
+                            inpsError[inpNum - 1] = isError;
+
+                        //Log($"[DEBUG] IN {inpNum}: {(isOn ? "ON" : "OFF")} attendu {(attenduOn ? "ON" : "OFF")} → {(isError ? "NOK" : "OK")}"); //DEBUG
                     }
                 }
-                else if (cleanedMessage.Contains("--> OK"))
+
+                // Cas global : "--> OK"
+                if (cleanedMessage.Contains("--> OK", StringComparison.OrdinalIgnoreCase))
                 {
-                    for (int i = 0; i < 3; i++) inpsError[i] = false;
+                    for (int i = 0; i < inpsError.Length; i++)
+                        inpsError[i] = false;
+                    //Log("[DEBUG] Toutes les IN conformes"); //DEBUG
                 }
 
                 UpdateInps();
             }
 
-
             // --- Test STS ---
-            if (currentState ==  3 && cleanedMessage.IndexOf("STS OK", StringComparison.OrdinalIgnoreCase) >= 0) // Si STS OK
+            if (currentState ==  3 && cleanedMessage.Contains("STS", StringComparison.OrdinalIgnoreCase)) // Si STS OK
             {
                 UpdateSTS(cleanedMessage);
             }
-            if (currentState == 3 && cleanedMessage.IndexOf("STS NOK", StringComparison.OrdinalIgnoreCase) >= 0) // Si STS NK
+
+            if(currentState == 8)
             {
-                UpdateSTS(cleanedMessage);
+                if(cleanedMessage.Contains("OPTR", StringComparison.OrdinalIgnoreCase))
+                {
+                    OptFullOn.Visibility = Visibility.Collapsed;
+                    OptRouge.Visibility = Visibility.Visible;
+                    OptOrange.Visibility = Visibility.Collapsed;
+                    OptVert.Visibility = Visibility.Collapsed;
+                }
+
+                else if (cleanedMessage.Contains("OPTY", StringComparison.OrdinalIgnoreCase))
+                {
+                    OptFullOn.Visibility = Visibility.Collapsed;
+                    OptRouge.Visibility = Visibility.Collapsed;
+                    OptOrange.Visibility = Visibility.Visible;
+                    OptVert.Visibility = Visibility.Collapsed;
+                }
+
+                else if (cleanedMessage.Contains("OPTG", StringComparison.OrdinalIgnoreCase))
+                {
+                    OptFullOn.Visibility = Visibility.Collapsed;
+                    OptRouge.Visibility = Visibility.Collapsed;
+                    OptOrange.Visibility = Visibility.Collapsed;
+                    OptVert.Visibility = Visibility.Visible;
+                }
+
+                else if (cleanedMessage.Contains("OPTFULL", StringComparison.OrdinalIgnoreCase))
+                {
+                    OptFullOn.Visibility = Visibility.Visible;
+                    OptRouge.Visibility = Visibility.Collapsed;
+                    OptOrange.Visibility = Visibility.Collapsed;
+                    OptVert.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
