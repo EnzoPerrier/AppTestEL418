@@ -10,12 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\CEL_JOUR.png" />
+    <None Remove="images\CEL_NUIT.png" />
     <None Remove="images\EL418_TST_ANIM.gif" />
     <None Remove="images\etape0.png" />
     <None Remove="Images\etape1.png" />
     <None Remove="Images\etape2.png" />
     <None Remove="Images\GitHubLogo.png" />
     <None Remove="Images\logo.ico" />
+    <None Remove="images\OPT_ANIM.gif" />
     <None Remove="Images\splash.png" />
     <None Remove="Images\splash.png.png" />
   </ItemGroup>
@@ -26,6 +29,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\CEL_JOUR.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\CEL_NUIT.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="images\EL418_TST_ANIM.gif">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -35,11 +44,11 @@
     <Resource Include="Images\etape1.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\etape2.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Images\GitHubLogo.png" />
     <Resource Include="Images\logo.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\OPT_ANIM.gif">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

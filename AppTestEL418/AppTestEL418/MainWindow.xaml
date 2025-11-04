@@ -112,21 +112,53 @@
                      FontSize="20"
                      Margin="0,0,10,0"
                      MaxLength="8"
-                     KeyDown="TxtPer_KeyDown"/>
-            <Button x:Name="btnSendPer" Content="Envoyer PER" Width="120" Click="BtnSendPer_Click"/>
+                     KeyDown="TxtPer_KeyDown"
+                     Background="#2D2F36" 
+                     BorderBrush="#3A86FF" 
+                     BorderThickness="2" 
+                     Foreground="White"/>
+            <Button x:Name="btnSendPer" 
+                    Content="Envoyer PER" 
+                    Width="120" 
+                    Click="BtnSendPer_Click"
+                    Background="#2D2F36" 
+                    BorderBrush="#3A86FF" 
+                    BorderThickness="2" 
+                    Foreground="White"/>
         </StackPanel>
 
         <!-- Zone STS (visible étape 2 uniquement) -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="LEFT"  Visibility="Collapsed" x:Name="panelSts">
-            <WrapPanel x:Name="wrapSTS" HorizontalAlignment="Left" Orientation="Vertical" />
+        <StackPanel 
+    Grid.Row="2" 
+    Orientation="Vertical" 
+    HorizontalAlignment="Center"  
+    Visibility="Collapsed" 
+    x:Name="panelSts">
+
+
+            <WrapPanel 
+        x:Name="wrapSTS" 
+        HorizontalAlignment="Left" 
+        Orientation="Vertical" />
+
+
+            <TextBlock 
+        Text="STS EN COURS..." 
+        HorizontalAlignment="Center"
+        Margin="0,0,0,5"
+        FontWeight="Bold"
+        Foreground="#3A86FF"/>
+
+
             <ProgressBar 
-                x:Name="LoadingBarSTS"
-                IsIndeterminate="True"
-                Width="300"
-                Height="20"
-                Foreground="#3A86FF" 
-                HorizontalAlignment="Center"/>
+        x:Name="LoadingBarSTS"
+        IsIndeterminate="True"
+        Width="300"
+        Height="20"
+        Foreground="#3A86FF" 
+        HorizontalAlignment="Center"/>
         </StackPanel>
+
 
         <!-- Zone DIPs -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" x:Name="panelDips" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -144,6 +176,14 @@
                Stretch="Uniform"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
+        </Grid>
+
+        <!-- Zone OPTIQUES -->
+        <Grid x:Name="OPT_Anim" Grid.Row="2" Visibility="Collapsed">
+            <Image gif:ImageBehavior.AnimatedSource="Images/OPT_ANIM.gif"
+                Stretch="Uniform"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
         </Grid>
 
         <!-- Boutons test Étape + / Étape - -->

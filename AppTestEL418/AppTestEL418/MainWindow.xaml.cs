@@ -27,53 +27,53 @@ namespace AppTestEL418
 
         private readonly string[] etapeMessages =
         {
-            "ETAPE 0 : Appuyez sur le bouton pour commencer",
-            "ETAPE 1 : Entrez le PER (8 digits)",
-            "ETAPE 2 : Test STS",
-            "ETAPE 3 : DIPs à OFF",
-            "ETAPE 4 : DIPs à ON",
-            "ETAPE 5 : Test entrées à OFF",
-            "ETAPE 6 : Test entrées à ON",
-            "ETAPE 7 : Test décompteur",
-            "ETAPE 8 : Test ampoules",
-            "ETAPE 9 : Test cellule JOUR",
-            "ETAPE 10 : Test cellule NUIT",
-            "ETAPE 11 : Test infrarouge",
-            "ETAPE 12 : Test accu"
+            "ETAPE 0 : Appuyez sur le bouton pour commencer", // ETAPE 0
+            "ETAPE 1 : Entrez le PER (8 digits)", // ETAPE 1
+            "ETAPE 2 : Test STS", // ETAPE 2
+            "ETAPE 3 : DIPs à OFF", // ETAPE 3
+            "ETAPE 4 : DIPs à ON", // ETAPE 4
+            "ETAPE 5 : Test entrées à OFF", // ETAPE 5
+            "ETAPE 6 : Test entrées à ON", // ETAPE 6
+            "ETAPE 7 : Test décompteur", // ETAPE 7
+            "ETAPE 8 : Test ampoules", // ETAPE 8
+            "ETAPE 9 : Test cellule JOUR", // ETAPE 9
+            "ETAPE 10 : Test cellule NUIT", // ETAPE 10
+            "ETAPE 11 : Test infrarouge", // ETAPE 11
+            "ETAPE 12 : Test accu" // ETAPE 12
         };
 
         private readonly string[] instructionMessages =
         {
-            "Branchez la carte, alimentez le banc en 12.5V et appuyez ensuite sur le BP valider pour commencer",
-            "Mesurez la base de temps à l'aide du fréquencemètre, reportez la dans la zone de texte ci-dessous\nSi la base de temps commence par 99xxxxx et ne contient que 7 digits, ajoutez un '0' à la fin (ex: 99999980)",
-            "Test STS auto en  cours ...",
-            "Mettez tous les DIPs à OFF et appuyez sur le BP valider du banc de test",
-            "Mettez tous les DIPs à ON et appuyer sur le BP reset de la carte, ensuite appuyez sur le BP valider du banc de test",
-            "Test auto des entrées à OFF en cours ...",
-            "Test auto des entrées à ON en cours ...",
-            "Vérifiez que toutes les LEDs du décompteur s'allument correctement à la bonne luminosité",
-            "Vérifiez que tous les défauts ampoules apparaissent les uns après les autres, ensuite appuyez sur le bouton valider si OK",
-            "Test cellule JOUR en cours, appuyez sur le BP valider une fois la cellule exposée à la lumière",
-            "Test cellule NUIT en cours, appuyez sur le BP valider une fois la cellule exposée à l'obscurité",
-            "Vérifiez l'IR en utilisant la télécommande",
-            "Vérifiez que le message 'supression batterie' s'affiche à l'écran LCD'"
+            "Branchez la carte, alimentez le banc en 12.5V et appuyez ensuite sur le BP valider pour commencer", // ETAPE 0
+            "Mesurez la base de temps à l'aide du fréquencemètre, reportez la dans la zone de texte ci-dessous\nSi la base de temps commence par 99xxxxx et ne contient que 7 digits, ajoutez un '0' à la fin (ex: 99999980)", // ETAPE 1
+            null, // ETAPE 2
+            "Mettez tous les DIPs à OFF et appuyez sur le BP valider du banc de test", // ETAPE 3
+            "Mettez tous les DIPs à ON et appuyer sur le BP reset de la carte, ensuite appuyez sur le BP valider du banc de test", // ETAPE 4
+            "Test auto des entrées à OFF en cours ...", // ETAPE 5
+            "Test auto des entrées à ON en cours ...", // ETAPE 6
+            "Vérifiez que toutes les LEDs du décompteur s'allument correctement à la bonne luminosité", // ETAPE 7
+            "Vérifiez que tous les défauts ampoules apparaissent les uns après les autres, ensuite appuyez sur le bouton valider si OK", // ETAPE 8
+            "Test cellule JOUR en cours, appuyez sur le BP valider une fois la cellule exposée à la lumière", // ETAPE 9
+            "Test cellule NUIT en cours, appuyez sur le BP valider une fois la cellule exposée à l'obscurité", // ETAPE 10
+            "Vérifiez l'IR en utilisant la télécommande", // ETAPE 11
+            "Vérifiez que le message 'supression batterie' s'affiche à l'écran LCD" // ETAPE 12
         };
 
         private readonly string[] etapeImages =
         {
-            "pack://application:,,,/Images/etape0.png",
-            "pack://application:,,,/Images/etape1.png",
-            //"pack://application:,,,/Images/etape2.png",
-            "pack://application:,,,/Images/etape3.png",
-            "pack://application:,,,/Images/etape4.png",
-            "pack://application:,,,/Images/etape5.png",
-            "pack://application:,,,/Images/etape6.png",
-            "pack://application:,,,/Images/etape7.png",
-            "pack://application:,,,/Images/etape8.png",
-            "pack://application:,,,/Images/etape9.png",
-            "pack://application:,,,/Images/etape10.png",
-            "pack://application:,,,/Images/etape11.png",
-            "pack://application:,,,/Images/etape12.png"
+            "pack://application:,,,/Images/etape0.png", // ETAPE 0
+            "pack://application:,,,/Images/etape1.png", // ETAPE 1
+            null, // ETAPE 2
+            null, // ETAPE 3
+            null, // ETAPE 4
+            null, // ETAPE 5
+            null, // ETAPE 6
+            null, // ETAPE 7
+            null, // ETAPE 8
+            "pack://application:,,,/Images/CEL_JOUR.png", // ETAPE 9
+            "pack://application:,,,/Images/CEL_NUIT.png", // ETAPE 10
+            null, // ETAPE 11
+            null // ETAPE 12
         };
 
         public MainWindow()
@@ -137,6 +137,13 @@ namespace AppTestEL418
             {
                 TST_LED_Anim.Visibility = Visibility.Visible;
             }else TST_LED_Anim.Visibility=Visibility.Collapsed;
+
+            // TST (Test décompteur Etape 7)
+            if (currentState == 8)
+            {
+                OPT_Anim.Visibility = Visibility.Visible;
+            }
+            else OPT_Anim.Visibility = Visibility.Collapsed;
         }
 
         //DEBUG
@@ -335,7 +342,7 @@ namespace AppTestEL418
                     {
                         currentState = step;
                         UpdateUI();
-                        //Log($"Changement d'étape automatique : {step}"); //Debug
+                        //Log($"[DEBUG]Changement d'étape automatique : {step}"); //Debug
                     }
                 }
             }
@@ -364,7 +371,7 @@ namespace AppTestEL418
                 }
                 else if (cleanedMessage.Contains("--> OK", StringComparison.OrdinalIgnoreCase))
                 {
-                    // Tout est conforme → tout vert
+                    // Tout est conforme donc tout vert
                     for (int i = 0; i < dipsError.Length; i++)
                     {
                         dipsError[i] = false;
@@ -407,12 +414,12 @@ namespace AppTestEL418
 
             // --- Test STS ---
             if (currentState ==  3 && cleanedMessage.IndexOf("STS OK", StringComparison.OrdinalIgnoreCase) >= 0) // Si STS OK
-            { 
-                LoadingBarSTS.Visibility = Visibility.Collapsed;
-            }
-            if (currentState == 3 && cleanedMessage.IndexOf("STS OK", StringComparison.OrdinalIgnoreCase) >= 0) // Si STS NK
             {
-                LoadingBarSTS.Visibility = Visibility.Collapsed;
+                UpdateSTS(cleanedMessage);
+            }
+            if (currentState == 3 && cleanedMessage.IndexOf("STS NOK", StringComparison.OrdinalIgnoreCase) >= 0) // Si STS NK
+            {
+                UpdateSTS(cleanedMessage);
             }
         }
 
