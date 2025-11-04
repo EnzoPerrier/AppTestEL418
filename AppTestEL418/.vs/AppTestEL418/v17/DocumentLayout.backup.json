@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|c:\\users\\sav02\\documents\\apptestel418\\apptestel418\\apptestel418\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|c:\\users\\sav02\\documents\\apptestel418\\apptestel418\\apptestel418\\mainwindow.xaml||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\mainwindow.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|c:\\users\\sav02\\documents\\apptestel418\\apptestel418\\apptestel418\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|c:\\users\\sav02\\documents\\apptestel418\\apptestel418\\apptestel418\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -104,13 +104,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "AppTestEL418\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml.cs",
               "RelativeToolTip": "AppTestEL418\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAowIAAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAowHAAAABgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-23T21:27:24.917Z",
               "EditorCaption": ""
@@ -123,13 +123,13 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml",
               "RelativeDocumentMoniker": "AppTestEL418\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml",
               "RelativeToolTip": "AppTestEL418\\MainWindow.xaml",
-              "ViewState": "AgIAAG4AAAAAAAAAAAAcwHYAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAcwJ8AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-09-09T20:44:01.824Z",
               "EditorCaption": ""
