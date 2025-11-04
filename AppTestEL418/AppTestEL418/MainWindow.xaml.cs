@@ -115,7 +115,7 @@ namespace AppTestEL418
             {
                 for (int i = 0; i < dipsError.Length; i++)
                 {
-                    dipsError[i] = true;      // NOK par défaut
+                    dipsError[i] = false;      // NOK par défaut
                     dipsPhysical[i] = false;  // valeur inconnue => OFF affiché
                 }
                 UpdateDips();
@@ -126,7 +126,7 @@ namespace AppTestEL418
             {
                 for (int i = 0; i < inpsError.Length; i++)
                 {
-                    inpsError[i] = true;
+                    inpsError[i] = false;
                     inpsPhysical[i] = false;
                 }
                 UpdateInps();
