@@ -378,8 +378,9 @@ namespace AppTestEL418
                     }
                     //Log("[DEBUG] Tous les DIPs conformes");
                 }
-
+                
                 UpdateDips();
+                Task.Delay(500);
             }
 
 
@@ -389,9 +390,6 @@ namespace AppTestEL418
             if ((currentState == 5 || currentState == 6) && cleanedMessage.Contains("IN", StringComparison.OrdinalIgnoreCase))
             {
                 bool attenduOn = (currentState == 6); // Étape 5 = OFF attendu ; Étape 6 = ON attendu
-
-                for (int i = 0; i < inpsError.Length; i++)
-                    inpsError[i] = true;
 
                 // Cas générique : "ERROR: IN X a ON" / "OK: IN X a OFF"
                 var matches = Regex.Matches(cleanedMessage, @"IN\s*(\d+)\s*a\s*(ON|OFF)", RegexOptions.IgnoreCase);
@@ -417,6 +415,17 @@ namespace AppTestEL418
                 }
 
                 UpdateInps();
+                Task.Delay(500);
+            }
+
+            // --- Test CEL JOUR & NUIT---
+            if (currentState == 9 ||currentState == 10)
+            {
+                if (cleanedMessage.Contains("ERROR:", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (currentState == 9) MessageBox.Show("ERREUR CELLULE EN NUIT");
+                    else MessageBox.Show("ERREUR CELLULE EN JOUR");
+                }
             }
 
             // --- Test STS ---
@@ -528,6 +537,7 @@ namespace AppTestEL418
                 dipPanel.Children.Add(stateLabel);
 
                 wrapDips.Children.Add(dipPanel);
+                
             }
         }
 
