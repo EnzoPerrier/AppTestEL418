@@ -1,0 +1,7 @@
+W:\ENZO_PERRIER\AppTest418 Install\AppTestEL418.exe
+W:\ENZO_PERRIER\AppTest418 Install\AppTestEL418.dll
+W:\ENZO_PERRIER\AppTest418 Install\AppTestEL418.deps.json
+W:\ENZO_PERRIER\AppTest418 Install\AppTestEL418.runtimeconfig.json
+W:\ENZO_PERRIER\AppTest418 Install\AppTestEL418.pdb
+W:\ENZO_PERRIER\AppTest418 Install\System.IO.Ports.dll
+W:\ENZO_PERRIER\AppTest418 Install\WpfAnimatedGif.dll

@@ -1,0 +1,7 @@
+C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\win-x64\app.publish\AppTestEL418.exe
+C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\win-x64\app.publish\AppTestEL418.dll
+C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\win-x64\app.publish\AppTestEL418.deps.json
+C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\win-x64\app.publish\AppTestEL418.runtimeconfig.json
+C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\win-x64\app.publish\AppTestEL418.pdb
+C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\win-x64\app.publish\System.IO.Ports.dll
+C:\Users\sav02\Documents\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\win-x64\app.publish\WpfAnimatedGif.dll
