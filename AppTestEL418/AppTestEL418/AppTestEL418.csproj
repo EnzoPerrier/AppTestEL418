@@ -82,4 +82,14 @@
     </None>
   </ItemGroup>
 
+  <PropertyGroup>
+    <SignAssembly>False</SignAssembly>
+    <AssemblyOriginatorKeyFile>CertifEnzoP.pfx</AssemblyOriginatorKeyFile>
+</PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&quot;C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\signtool.exe&quot; sign /f &quot;$(ProjectDir)CertifAPP.pfx&quot; /p 10062004 /tr http://timestamp.digicert.com /td sha256 /fd sha256 &quot;$(TargetDir)$(TargetName).exe&quot;&#xD;&#xA;" />
+  </Target>
+
+
 </Project>
