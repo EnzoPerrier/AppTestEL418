@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|z:\\projets\\projet 11 banc de test el418 - tts\\soft\\apptestel418\\apptestel418\\apptestel418\\apptestel418.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\apptestel418.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|z:\\projets\\projet 11 banc de test el418 - tts\\soft\\apptestel418\\apptestel418\\apptestel418\\apptestel418.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\apptestel418.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|z:\\projets\\projet 11 banc de test el418 - tts\\soft\\apptestel418\\apptestel418\\apptestel418\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|z:\\projets\\projet 11 banc de test el418 - tts\\soft\\apptestel418\\apptestel418\\apptestel418\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -29,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|z:\\projets\\projet 11 banc de test el418 - tts\\soft\\apptestel418\\apptestel418\\apptestel418\\terminalwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\terminalwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|z:\\projets\\projet 11 banc de test el418 - tts\\soft\\apptestel418\\apptestel418\\apptestel418\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 337,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,7 +54,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
+              "Title": "AppTestEL418.csproj",
+              "DocumentMoniker": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
+              "RelativeDocumentMoniker": "AppTestEL418\\AppTestEL418.csproj",
+              "ToolTip": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
+              "RelativeToolTip": "AppTestEL418\\AppTestEL418.csproj",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAgwFAAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-14T23:35:18.272Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "TerminalWindow.xaml.cs",
               "DocumentMoniker": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\TerminalWindow.xaml.cs",
               "RelativeDocumentMoniker": "AppTestEL418\\TerminalWindow.xaml.cs",
@@ -62,7 +79,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "TerminalWindow.xaml",
               "DocumentMoniker": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\TerminalWindow.xaml",
               "RelativeDocumentMoniker": "AppTestEL418\\TerminalWindow.xaml",
@@ -73,7 +90,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\App.xaml.cs",
               "RelativeDocumentMoniker": "AppTestEL418\\App.xaml.cs",
@@ -81,24 +98,22 @@
               "RelativeToolTip": "AppTestEL418\\App.xaml.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-21T20:10:19.586Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-21T20:10:19.586Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "App.xaml",
               "DocumentMoniker": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\App.xaml",
               "RelativeDocumentMoniker": "AppTestEL418\\App.xaml",
               "ToolTip": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\App.xaml",
               "RelativeToolTip": "AppTestEL418\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-09T20:48:33.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T20:48:33.465Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml",
               "RelativeDocumentMoniker": "AppTestEL418\\MainWindow.xaml",
@@ -110,19 +125,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "AppTestEL418\\MainWindow.xaml.cs",
               "ToolTip": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml.cs",
               "RelativeToolTip": "AppTestEL418\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAHgBAAAAAAAAAAAQwIUBAAB+AAAAAAAAAA==",
+              "ViewState": "AgIAAHkCAAAAAAAAAAAlwIYCAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-23T21:27:24.917Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AppTestEL418",
               "DocumentMoniker": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
               "RelativeDocumentMoniker": "AppTestEL418\\AppTestEL418.csproj",
@@ -140,7 +155,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "Z:\\Projets\\Projet 11 Banc de test EL418 - TTS\\soft\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml",
               "RelativeDocumentMoniker": "AppTestEL418\\MainWindow.xaml",
