@@ -16,18 +16,18 @@ L’application a été pensée pour offrir une interface moderne, ergonomique e
 
 ## 🚀 Fonctionnalités principales
 
-- 🔌 **Communication RS232** : envoi et réception de trames STS via le port série.
-- 📡 **Analyse de trames** : extraction automatique des données et états de test.
-- 🖥️ **Interface WPF réactive** : mise à jour automatique des indicateurs via `Dispatcher.Invoke`.
-- 📊 **Affichage en temps réel** des résultats et états du banc.
-- 🧱 **Structure modulaire** prête à évoluer vers des tests automatisés.
+- 🔌 Tests simplifiés : Test des fonctions de la cartes plus simples pour les techniciens
+- 📡 Tests plus rigoureux et efficaces : exécution automatiques de certaines actions de tests
+- 📊 Affichage et analyse en temps réel: analyse et interprétation des résultats de tests de façon automatique
+- 🧱 Structure modulaire prête à évoluer vers des tests automatisés.
 
 ---
 
 ## 📁 Fichiers utiles
 
-- Lien vers les fichiers de CAO 3D:
-- Lien vers les fichiers de CAO électronique:
+- Lien vers les fichiers de CAO électronique: https://github.com/EnzoPerrier/BancTestEL418-Electronique
+- Lien vers les fichiers CAO 3D: https://www.thingiverse.com/thing:7192111
+- Lien vers les fichiers sources du logiciel embarqué: https://github.com/EnzoPerrier/BANC_TEST_001_V100
 
 ---
 
@@ -53,7 +53,14 @@ L’application a été pensée pour offrir une interface moderne, ergonomique e
 - Les infos de test et les indications s'affichent en temps réel
 
 4. **Analyser les résultats**  
-- Les statuts des tests apparaissent sous forme d’indicateurs colorés.  
+- Les statuts des tests apparaissent sous forme d’indicateurs colorés.
+
+## 🛠️ Utilisation du Banc de Test
+
+![SchemaBDT1](Ressources/Images/Schema%20des%20E-S%201-Biais%20droite.png)
+![SchemaBDT2](Ressources/Images/Schema%20des%20E-S%201-Dessus.png)
+![SchemaBDT3](Ressources/Images/Schema%20des%20E-S%201-Arriere.png)
+
 
 ## 🧠 Notes techniques
 
