@@ -36,7 +36,7 @@ L’application a été pensée pour offrir une interface moderne, ergonomique e
 - Windows 10 ou 11  
 - [.NET 8 SDK](https://dotnet.microsoft.com/download)
 - Visual Studio 2022 ou VS Code avec extension C#  
-- Un périphérique RS232 (STM32F103 dans le cadre du banc EL418)  
+- Un périphérique RS232   
 - Câble USB–série (ou adaptateur COM)
 
 ---
