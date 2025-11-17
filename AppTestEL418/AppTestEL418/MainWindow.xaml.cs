@@ -419,14 +419,14 @@ namespace AppTestEL418
             }
 
             // --- Test CEL JOUR & NUIT---
-            if (currentState == 9 ||currentState == 10)
+            /*if (currentState == 9 ||currentState == 10)
             {
                 if (cleanedMessage.Contains("ERROR:", StringComparison.OrdinalIgnoreCase))
                 {
                     if (currentState == 9) MessageBox.Show("ERREUR CELLULE EN NUIT");
                     else MessageBox.Show("ERREUR CELLULE EN JOUR");
                 }
-            }
+            }*/
 
             // --- Test STS ---
             if (currentState ==  3 && cleanedMessage.Contains("STS", StringComparison.OrdinalIgnoreCase)) // Si STS OK
