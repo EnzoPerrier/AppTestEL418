@@ -109,6 +109,8 @@ namespace AppTestEL418
             panelSts.Visibility = (currentState == 2) ? Visibility.Visible : Visibility.Collapsed;
             panelDips.Visibility = (currentState == 3 || currentState == 4) ? Visibility.Visible : Visibility.Collapsed;
             panelInps.Visibility = (currentState == 5 || currentState == 6) ? Visibility.Visible : Visibility.Collapsed;
+            panelCelJour.Visibility = (currentState == 9) ? Visibility.Visible : Visibility.Collapsed;
+            panelCelNuit.Visibility = (currentState == 10) ? Visibility.Visible : Visibility.Collapsed;
 
             // Lorsque l'on entre sur les étapes DIPs on initialise en NOK (attente de la carte)
             if (currentState == 3 || currentState == 4)
@@ -148,7 +150,7 @@ namespace AppTestEL418
             // Lorsque l'on entre sur les étapes CEL on initialise en OK (attente de la carte)
             if (currentState == 9 || currentState == 10)
             {
-                UpdateCel(true);
+                UpdateCel(false);
             }
         }
 
@@ -516,8 +518,8 @@ namespace AppTestEL418
                 // Voyant : rouge si erreur, vert sinon
                 Ellipse led = new Ellipse
                 {
-                    Width = 40,
-                    Height = 40,
+                    Width = 50,
+                    Height = 50,
                     Fill = dipsError[i] ? Brushes.Red : Brushes.LimeGreen,
                     Stroke = Brushes.White,
                     StrokeThickness = 2
@@ -528,7 +530,7 @@ namespace AppTestEL418
                     Text = $"DIP {i + 1}",
                     Foreground = Brushes.White,
                     FontWeight = FontWeights.Bold,
-                    FontSize = 14,
+                    FontSize = 15,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Margin = new Thickness(0, 5, 0, 0)
                 };
@@ -540,7 +542,7 @@ namespace AppTestEL418
                 {
                     Text = stateText,
                     Foreground = stateColor,
-                    FontSize = 12,
+                    FontSize = 13,
                     FontWeight = FontWeights.SemiBold,
                     HorizontalAlignment = HorizontalAlignment.Center
                 };
@@ -570,8 +572,8 @@ namespace AppTestEL418
 
                 Ellipse led = new Ellipse
                 {
-                    Width = 40,
-                    Height = 40,
+                    Width = 50,
+                    Height = 50,
                     Fill = inpsError[i] ? Brushes.Red : Brushes.LimeGreen,
                     Stroke = Brushes.White,
                     StrokeThickness = 2
@@ -582,7 +584,7 @@ namespace AppTestEL418
                     Text = $"Entrée {i + 1}",
                     Foreground = Brushes.White,
                     FontWeight = FontWeights.Bold,
-                    FontSize = 14,
+                    FontSize = 15,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Margin = new Thickness(0, 5, 0, 0)
                 };
@@ -594,7 +596,7 @@ namespace AppTestEL418
                 {
                     Text = stateText,
                     Foreground = stateColor,
-                    FontSize = 12,
+                    FontSize = 13,
                     FontWeight = FontWeights.SemiBold,
                     HorizontalAlignment = HorizontalAlignment.Center
                 };
@@ -612,6 +614,7 @@ namespace AppTestEL418
         {
             if(currentState == 9)
             {
+                wrapCelJour.Children.Clear();
                 StackPanel panelCelJour = new StackPanel
                 {
                     Orientation = Orientation.Vertical,
@@ -621,8 +624,8 @@ namespace AppTestEL418
 
                 Ellipse led = new Ellipse
                 {
-                    Width = 40,
-                    Height = 40,
+                    Width = 80,
+                    Height = 80,
                     Fill = test_status ? Brushes.Red : Brushes.Yellow,
                     Stroke = Brushes.White,
                     StrokeThickness = 2
@@ -633,19 +636,19 @@ namespace AppTestEL418
                     Text = $"Cellule en Jour",
                     Foreground = Brushes.White,
                     FontWeight = FontWeights.Bold,
-                    FontSize = 14,
+                    FontSize = 18,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Margin = new Thickness(0, 5, 0, 0)
                 };
 
                 string stateText = test_status ? "NOK" : "OK";
-                Brush stateColor = test_status ? Brushes.Red : Brushes.Yellow;
+                Brush stateColor = test_status ? Brushes.Red : Brushes.LimeGreen;
 
                 TextBlock stateLabel = new TextBlock
                 {
                     Text = stateText,
                     Foreground = stateColor,
-                    FontSize = 12,
+                    FontSize = 16,
                     FontWeight = FontWeights.SemiBold,
                     HorizontalAlignment = HorizontalAlignment.Center
                 };
@@ -659,6 +662,7 @@ namespace AppTestEL418
             }
             else if (currentState == 10)
             {
+                wrapCelNuit.Children.Clear();
                 StackPanel panelCelNuit = new StackPanel
                 {
                     Orientation = Orientation.Vertical,
@@ -668,8 +672,8 @@ namespace AppTestEL418
 
                 Ellipse led = new Ellipse
                 {
-                    Width = 40,
-                    Height = 40,
+                    Width = 80,
+                    Height = 80,
                     Fill = test_status ? Brushes.Red : Brushes.DarkBlue,
                     Stroke = Brushes.White,
                     StrokeThickness = 2
@@ -680,19 +684,19 @@ namespace AppTestEL418
                     Text = $"Cellule en Nuit",
                     Foreground = Brushes.White,
                     FontWeight = FontWeights.Bold,
-                    FontSize = 14,
+                    FontSize = 18,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Margin = new Thickness(0, 5, 0, 0)
                 };
 
                 string stateText = test_status ? "NOK" : "OK";
-                Brush stateColor = test_status ? Brushes.Red : Brushes.DarkBlue;
+                Brush stateColor = test_status ? Brushes.Red : Brushes.LimeGreen;
 
                 TextBlock stateLabel = new TextBlock
                 {
                     Text = stateText,
                     Foreground = stateColor,
-                    FontSize = 12,
+                    FontSize = 16,
                     FontWeight = FontWeights.SemiBold,
                     HorizontalAlignment = HorizontalAlignment.Center
                 };
