@@ -70,8 +70,8 @@ namespace AppTestEL418
             null, // ETAPE 6
             null, // ETAPE 7
             null, // ETAPE 8
-            "pack://application:,,,/Images/CEL_JOUR.png", // ETAPE 9
-            "pack://application:,,,/Images/CEL_NUIT.png", // ETAPE 10
+            null,//"pack://application:,,,/Images/CEL_JOUR.png", // ETAPE 9
+            null,//"pack://application:,,,/Images/CEL_NUIT.png", // ETAPE 10
             null, // ETAPE 11
             "pack://application:,,,/Images/etape12.jpg" // ETAPE 12
         };
@@ -144,6 +144,12 @@ namespace AppTestEL418
                 OPT_Anim.Visibility = Visibility.Visible;
             }
             else OPT_Anim.Visibility = Visibility.Collapsed;
+
+            // Lorsque l'on entre sur les étapes CEL on initialise en OK (attente de la carte)
+            if (currentState == 9 || currentState == 10)
+            {
+                UpdateCel(true);
+            }
         }
 
         //DEBUG
@@ -419,14 +425,21 @@ namespace AppTestEL418
             }
 
             // --- Test CEL JOUR & NUIT---
-            /*if (currentState == 9 ||currentState == 10)
+            if (currentState == 9 ||currentState == 10)
             {
+                bool status_test_cel = false; // false = NOK et true = OK
                 if (cleanedMessage.Contains("ERROR:", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (currentState == 9) MessageBox.Show("ERREUR CELLULE EN NUIT");
-                    else MessageBox.Show("ERREUR CELLULE EN JOUR");
+                    status_test_cel = false; 
+
                 }
-            }*/
+                else
+                {
+                    status_test_cel = true;
+                }
+
+                UpdateCel(status_test_cel);
+            }
 
             // --- Test STS ---
             if (currentState ==  3 && cleanedMessage.Contains("STS", StringComparison.OrdinalIgnoreCase)) // Si STS OK
@@ -594,6 +607,105 @@ namespace AppTestEL418
             }
         }
 
+        
+        private void UpdateCel(bool test_status)
+        {
+            if(currentState == 9)
+            {
+                StackPanel panelCelJour = new StackPanel
+                {
+                    Orientation = Orientation.Vertical,
+                    Margin = new Thickness(10),
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                Ellipse led = new Ellipse
+                {
+                    Width = 40,
+                    Height = 40,
+                    Fill = test_status ? Brushes.Red : Brushes.Yellow,
+                    Stroke = Brushes.White,
+                    StrokeThickness = 2
+                };
+
+                TextBlock celJLabel = new TextBlock
+                {
+                    Text = $"Cellule en Jour",
+                    Foreground = Brushes.White,
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 14,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 5, 0, 0)
+                };
+
+                string stateText = test_status ? "NOK" : "OK";
+                Brush stateColor = test_status ? Brushes.Red : Brushes.Yellow;
+
+                TextBlock stateLabel = new TextBlock
+                {
+                    Text = stateText,
+                    Foreground = stateColor,
+                    FontSize = 12,
+                    FontWeight = FontWeights.SemiBold,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                panelCelJour.Children.Add(led);
+                panelCelJour.Children.Add(celJLabel);
+                panelCelJour.Children.Add(stateLabel);
+
+                wrapCelJour.Children.Add(panelCelJour);
+
+            }
+            else if (currentState == 10)
+            {
+                StackPanel panelCelNuit = new StackPanel
+                {
+                    Orientation = Orientation.Vertical,
+                    Margin = new Thickness(10),
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                Ellipse led = new Ellipse
+                {
+                    Width = 40,
+                    Height = 40,
+                    Fill = test_status ? Brushes.Red : Brushes.DarkBlue,
+                    Stroke = Brushes.White,
+                    StrokeThickness = 2
+                };
+
+                TextBlock CelNLabel = new TextBlock
+                {
+                    Text = $"Cellule en Nuit",
+                    Foreground = Brushes.White,
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 14,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 5, 0, 0)
+                };
+
+                string stateText = test_status ? "NOK" : "OK";
+                Brush stateColor = test_status ? Brushes.Red : Brushes.DarkBlue;
+
+                TextBlock stateLabel = new TextBlock
+                {
+                    Text = stateText,
+                    Foreground = stateColor,
+                    FontSize = 12,
+                    FontWeight = FontWeights.SemiBold,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                };
+
+                panelCelNuit.Children.Add(led);
+                panelCelNuit.Children.Add(CelNLabel);
+                panelCelNuit.Children.Add(stateLabel);
+
+                wrapCelNuit.Children.Add(panelCelNuit);
+
+            }
+
+        }
 
         // Mode terminal
         private void BtnOpenTerminal_Click(object sender, RoutedEventArgs e)
