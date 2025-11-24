@@ -25,6 +25,9 @@ namespace AppTestEL418
         private bool[] inpsError = new bool[3];
         private bool[] inpsPhysical = new bool[3];
 
+        // Cellule
+        private bool status_test_cel = false; // false = OK et true = NOK
+
         private readonly string[] etapeMessages =
         {
             "ETAPE 0 : Appuyez sur le bouton pour commencer", // ETAPE 0
@@ -429,15 +432,14 @@ namespace AppTestEL418
             // --- Test CEL JOUR & NUIT---
             if (currentState == 9 ||currentState == 10)
             {
-                bool status_test_cel = false; // false = NOK et true = OK
                 if (cleanedMessage.Contains("ERROR:", StringComparison.OrdinalIgnoreCase))
                 {
-                    status_test_cel = false; 
+                    status_test_cel = true; 
 
                 }
-                else
+                else if(cleanedMessage.Contains("--> OK", StringComparison.OrdinalIgnoreCase))
                 {
-                    status_test_cel = true;
+                    status_test_cel = false;
                 }
 
                 UpdateCel(status_test_cel);
