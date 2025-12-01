@@ -178,7 +178,7 @@ namespace AppTestEL418
                 string message = per;
                 if (serialPort != null && serialPort.IsOpen)
                 {
-                    try { serialPort.Write(message); Log("PER envoyé : " + message); }
+                    try { serialPort.Write(message+"\r"); Log("PER envoyé : " + message); }
                     catch (Exception ex) { MessageBox.Show("Erreur envoi PER : " + ex.Message); }
                 }
                 else MessageBox.Show("Le port série n'est pas ouvert !");
