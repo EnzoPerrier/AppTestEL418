@@ -115,6 +115,17 @@ namespace AppTestEL418
             panelCelJour.Visibility = (currentState == 9) ? Visibility.Visible : Visibility.Collapsed;
             panelCelNuit.Visibility = (currentState == 10) ? Visibility.Visible : Visibility.Collapsed;
 
+            // Permet d'écrire sans avoir a cliquer sur la zone de texte
+            if (currentState == 1)
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    txtPer.Focus();
+                    //txtPer.SelectAll(); // Séléctionne le texte dans la zone de saisie
+                }), System.Windows.Threading.DispatcherPriority.Background);
+            }
+
+
             // Lorsque l'on entre sur les étapes DIPs on initialise en NOK (attente de la carte)
             if (currentState == 3 || currentState == 4)
             {
