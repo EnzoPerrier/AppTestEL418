@@ -75,7 +75,7 @@ namespace AppTestEL418
             null, // ETAPE 8
             null,//"pack://application:,,,/Images/CEL_JOUR.png", // ETAPE 9
             null,//"pack://application:,,,/Images/CEL_NUIT.png", // ETAPE 10
-            null, // ETAPE 11
+            "pack://application:,,,/Images/MIS.png", // ETAPE 11
             "pack://application:,,,/Images/etape12.jpg" // ETAPE 12
         };
 

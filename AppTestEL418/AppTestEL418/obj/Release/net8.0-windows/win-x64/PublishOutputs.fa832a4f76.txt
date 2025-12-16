@@ -1,0 +1,7 @@
+W:\ENZO_PERRIER\AppTest418\AppTestEL418.pdb
+W:\ENZO_PERRIER\AppTest418\D3DCompiler_47_cor3.dll
+W:\ENZO_PERRIER\AppTest418\PenImc_cor3.dll
+W:\ENZO_PERRIER\AppTest418\PresentationNative_cor3.dll
+W:\ENZO_PERRIER\AppTest418\vcruntime140_cor3.dll
+W:\ENZO_PERRIER\AppTest418\wpfgfx_cor3.dll
+W:\ENZO_PERRIER\AppTest418\AppTestEL418.exe

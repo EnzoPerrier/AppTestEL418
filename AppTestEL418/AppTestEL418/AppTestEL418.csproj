@@ -24,6 +24,7 @@
     <None Remove="Images\etape2.png" />
     <None Remove="Images\GitHubLogo.png" />
     <None Remove="Images\logo.ico" />
+    <None Remove="images\MIS.png" />
     <None Remove="Images\splash.png" />
     <None Remove="Images\splash.png.png" />
   </ItemGroup>
@@ -46,12 +47,6 @@
     <Resource Include="Images\Animation OPT\VERT_OFF.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="images\CEL_JOUR.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="images\CEL_NUIT.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="images\EL418_TST_ANIM.gif">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -66,6 +61,9 @@
     </Resource>
     <Resource Include="Images\GitHubLogo.png" />
     <Resource Include="Images\logo.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\MIS.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj": {}
+    "C:\\Users\\sav02\\Documents\\BANC_TEST_EL418\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj": {
+    "C:\\Users\\sav02\\Documents\\BANC_TEST_EL418\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
+        "projectUniqueName": "C:\\Users\\sav02\\Documents\\BANC_TEST_EL418\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
         "projectName": "AppTestEL418",
-        "projectPath": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
+        "projectPath": "C:\\Users\\sav02\\Documents\\BANC_TEST_EL418\\AppTestEL418\\AppTestEL418\\AppTestEL418\\AppTestEL418.csproj",
         "packagesPath": "C:\\Users\\sav02\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sav02\\Documents\\AppTestEL418\\AppTestEL418\\AppTestEL418\\obj\\publish\\win-x64\\",
+        "outputPath": "C:\\Users\\sav02\\Documents\\BANC_TEST_EL418\\AppTestEL418\\AppTestEL418\\AppTestEL418\\obj\\publish\\win-x64\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,12 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "dependencies": {
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.20, )",
+              "autoReferenced": true
+            },
             "System.IO.Ports": {
               "target": "Package",
               "version": "[9.0.9, )"
@@ -70,6 +76,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[8.0.20, 8.0.20]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
