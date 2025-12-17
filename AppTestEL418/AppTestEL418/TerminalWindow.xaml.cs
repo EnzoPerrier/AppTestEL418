@@ -8,12 +8,14 @@ namespace AppTestEL418
     public partial class TerminalWindow : Window
     {
         private SerialPort serialPort;
-
+        
+        
         public TerminalWindow(SerialPort port)
         {
             InitializeComponent();
             serialPort = port;
             serialPort.DataReceived += SerialPort_DataReceived;
+            txtSend.Focus();
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
