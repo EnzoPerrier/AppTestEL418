@@ -8,8 +8,7 @@ namespace AppTestEL418
     public partial class TerminalWindow : Window
     {
         private SerialPort serialPort;
-        
-        
+
         public TerminalWindow(SerialPort port)
         {
             InitializeComponent();
@@ -26,7 +25,7 @@ namespace AppTestEL418
                 Dispatcher.Invoke(() =>
                 {
                     txtReceive.AppendText(data);
-                    txtReceive.ScrollToEnd(); // défilement automatique
+                    txtReceive.ScrollToEnd();
                     scrollViewer.ScrollToEnd();
                 });
             }
@@ -60,14 +59,56 @@ namespace AppTestEL418
 
             try
             {
-                serialPort.WriteLine(msg);
-                //txtReceive.AppendText($"\n\r> {msg}\n"); //Affiche la commande envoyée par l'utilisateur
+                serialPort.WriteLine(msg); 
+                //txtReceive.AppendText($"> {msg}\n"); // DEBUG
                 scrollViewer.ScrollToEnd();
                 txtSend.Clear();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur d'envoi : {ex.Message}");
+                MessageBox.Show($"Erreur d'envoi : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // Bouton PER
+        private void BtnPer_Click(object sender, RoutedEventArgs e)
+        {
+            SendCommand("PER\r");
+        }
+
+        // Bouton STS
+        private void BtnSts_Click(object sender, RoutedEventArgs e)
+        {
+            SendCommand("STS\r");
+        }
+
+        // Bouton TST=1
+        private void BtnTst1_Click(object sender, RoutedEventArgs e)
+        {
+            SendCommand("TST=1\r");
+        }
+
+        // Bouton TST=0
+        private void BtnTst0_Click(object sender, RoutedEventArgs e)
+        {
+            SendCommand("TST=0\r");
+        }
+
+        // Méthode générique pour envoyer une commande
+        private void SendCommand(string command)
+        {
+            try
+            {
+                serialPort.WriteLine(command);
+                //txtReceive.AppendText($"> {command}\n"); // DEBUG
+                scrollViewer.ScrollToEnd();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur d'envoi de la commande '{command}' : {ex.Message}",
+                              "Erreur",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Error);
             }
         }
 

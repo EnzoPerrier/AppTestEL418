@@ -98,7 +98,7 @@ namespace AppTestEL418
 
         private void UpdateUI()
         {
-            txtEtape.Text = $"---- {etapeMessages[currentState]} ----";
+            txtEtape.Text = $"{etapeMessages[currentState]}";
             txtInstructions.Text = instructionMessages[currentState];
 
             try
@@ -255,8 +255,17 @@ namespace AppTestEL418
 
                 serialPort.DataReceived += SerialPort_DataReceived;
                 serialPort.Open();
+                cmbPorts.IsEnabled = false;
 
-                ellipseStatus.Fill = Brushes.Green;
+                // LED verte avec effet glow
+                ellipseStatus.Fill = new SolidColorBrush(Color.FromRgb(38, 222, 129));
+                ellipseStatus.Effect = new System.Windows.Media.Effects.DropShadowEffect
+                {
+                    Color = Color.FromRgb(38, 222, 129), // Vert
+                    BlurRadius = 15,
+                    ShadowDepth = 0,
+                    Opacity = 0.8
+                };
                 Log($"Port {serialPort.PortName} ouvert.");
                 btnOpen.IsEnabled = false;
                 btnClose.IsEnabled = true;
@@ -278,6 +287,7 @@ namespace AppTestEL418
                         serialPort.DataReceived -= SerialPort_DataReceived;
                         if (serialPort.IsOpen) serialPort.Close();
                         serialPort.Dispose();
+                        cmbPorts.IsEnabled = true;
                     }
                     catch (Exception exClose)
                     {
@@ -286,7 +296,16 @@ namespace AppTestEL418
                     serialPort = null;
                 }
 
-                ellipseStatus.Fill = Brushes.Red;
+                // LED rouge avec effet glow
+                ellipseStatus.Fill = new SolidColorBrush(Color.FromRgb(255, 71, 87));
+                ellipseStatus.Effect = new System.Windows.Media.Effects.DropShadowEffect
+                {
+                    Color = Color.FromRgb(255, 71, 87), // Rouge
+                    BlurRadius = 15,
+                    ShadowDepth = 0,
+                    Opacity = 0.8
+                };
+
                 Log("Port fermé.");
                 btnOpen.IsEnabled = true;
                 btnClose.IsEnabled = false;
@@ -797,3 +816,4 @@ namespace AppTestEL418
         }
     }
 }
+
