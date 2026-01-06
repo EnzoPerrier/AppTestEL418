@@ -227,7 +227,7 @@
 
                 <TextBox x:Name="txtSend"
                          Grid.Column="0"
-                         Height="60"
+                         Height="50"
                          Style="{StaticResource ModernTextBox}"
                          Margin="0,0,10,0"
                          KeyDown="TxtSend_KeyDown"
