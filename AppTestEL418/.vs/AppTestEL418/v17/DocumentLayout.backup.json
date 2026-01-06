@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\sav02\\Documents\\BANC_TEST_EL418\\AppTestEL418\\AppTestEL418\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|c:\\users\\sav02\\documents\\banc_test_el418\\apptestel418\\apptestel418\\apptestel418\\mainwindow.xaml||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\mainwindow.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|c:\\users\\sav02\\documents\\banc_test_el418\\apptestel418\\apptestel418\\apptestel418\\terminalwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\terminalwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|c:\\users\\sav02\\documents\\banc_test_el418\\apptestel418\\apptestel418\\apptestel418\\mainwindow.xaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|solutionrelative:apptestel418\\mainwindow.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22FACBE3-9FC0-4046-810C-865CFBA09A02}|AppTestEL418\\AppTestEL418.csproj|c:\\users\\sav02\\documents\\banc_test_el418\\apptestel418\\apptestel418\\apptestel418\\terminalwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,12 +74,11 @@
               "RelativeToolTip": "AppTestEL418\\TerminalWindow.xaml.cs",
               "ViewState": "AgIAAD0AAAAAAAAAAAAcwHwAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T21:42:52.307Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-27T21:42:52.307Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "TerminalWindow.xaml",
               "DocumentMoniker": "C:\\Users\\sav02\\Documents\\BANC_TEST_EL418\\AppTestEL418\\AppTestEL418\\AppTestEL418\\TerminalWindow.xaml",
               "RelativeDocumentMoniker": "AppTestEL418\\TerminalWindow.xaml",
@@ -157,13 +156,13 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\sav02\\Documents\\BANC_TEST_EL418\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml",
               "RelativeDocumentMoniker": "AppTestEL418\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\sav02\\Documents\\BANC_TEST_EL418\\AppTestEL418\\AppTestEL418\\AppTestEL418\\MainWindow.xaml",
               "RelativeToolTip": "AppTestEL418\\MainWindow.xaml",
-              "ViewState": "AgIAAOEAAAAAAAAAAAAAAOsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAOEAAAAAAAAAAAAAAOkAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-09-09T20:44:01.824Z",
               "EditorCaption": ""

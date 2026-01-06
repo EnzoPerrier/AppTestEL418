@@ -8,9 +8,9 @@
 ## 🧩 Présentation
 
 **AppTestEL418** est une application **WPF (.NET)** développée dans le cadre du **banc de test EL418** pour **TTS (Trafic Technologie Système)**.  
-Elle permet la **communication série (RS232)** avec une carte EL418 afin de tester, valider et diagnostiquer les modules électroniques du système.
+Elle permet la **communication série (RS232)** avec la carte **banc de test EL418** dans le but de valider et diagnostiquer les modules électroniques des feux tricolores TEMPO® II.
 
-L’application a été pensée pour offrir une interface moderne, ergonomique et fiable, facilitant les opérations de test 
+L’application a été pensée pour offrir une interface moderne, ergonomique et fiable, facilitant et fiabilisant les opérations de test 
 
 ---
 
@@ -19,7 +19,7 @@ L’application a été pensée pour offrir une interface moderne, ergonomique e
 - 🔌 Tests simplifiés : Test des fonctions de la cartes plus simples pour les techniciens
 - 📡 Tests plus rigoureux et efficaces : exécution automatiques de certaines actions de tests
 - 📊 Affichage et analyse en temps réel: analyse et interprétation des résultats de tests de façon automatique
-- 🧱 Structure modulaire prête à évoluer vers des tests automatisés.
+- 🧱 Structure modulaire prête à évoluer vers des tests plus automatisés.
 
 ---
 
@@ -33,11 +33,12 @@ L’application a été pensée pour offrir une interface moderne, ergonomique e
 
 ## ⚙️ Prérequis
 
-- Windows 10 ou 11  
+- Windows **10** ou **11** 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download)
 - Visual Studio 2022 ou VS Code avec extension C#  
-- Un périphérique RS232   
-- Câble USB–série (ou adaptateur COM)
+- Banc de test **ECME 286** (Avec carte banc de test pour EL418)
+- Câble USB–série (ou adaptateur COM - RS232)
+
 
 ---
 
@@ -67,7 +68,7 @@ L’application a été pensée pour offrir une interface moderne, ergonomique e
 - Implémentation basée sur `System.IO.Ports.SerialPort`.  
 - Gestion UI thread-safe via `Dispatcher.Invoke()` / `Dispatcher.BeginInvoke()`.  
 - Architecture compatible avec un futur découpage **MVVM**.  
-- Peut évoluer vers une interface **multi-bancs** ou **multi-protocoles** (CAN, TCP...).
+- Peut évoluer vers une interface **multi-bancs** ou **multi-protocoles**.
 
 ## 👤 Auteur
 
