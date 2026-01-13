@@ -70,9 +70,15 @@ L’application a été pensée pour offrir une interface moderne, ergonomique e
 - Architecture compatible avec un futur découpage **MVVM**.  
 - Peut évoluer vers une interface **multi-bancs** ou **multi-protocoles**.
 
-## 👤 Auteur
+## License
 
-**Développé par :** Enzo PERRIER 
-**Entreprise :** TTS (Trafic Technologie Système)  
-**Projet :** Banc de test EL418  
+© 2026 Enzo PERRIER
+
+This project is licensed for personal, non-commercial use only.
+Commercial use, modification, and redistribution are prohibited
+without prior written permission from the author.
+
+A specific authorization is granted to **Trafic Technologie Système** to use this code for
+internal purposes as part of its business activities.
+
 
