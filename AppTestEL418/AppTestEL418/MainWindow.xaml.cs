@@ -603,6 +603,8 @@ namespace AppTestEL418
 
         private void AddSTSVoltage(string line, float min, float max)
         {
+            const float delta = 0.25f;
+
             if (string.IsNullOrEmpty(line)) return;
 
             var match = Regex.Match(line, @"([-+]?[0-9]*\.?[0-9]+)");
@@ -612,7 +614,7 @@ namespace AppTestEL418
                 float.TryParse(match.Value, System.Globalization.CultureInfo.InvariantCulture, out float v))
             {
                 if (v < min || v > max) color = Brushes.Red;
-                else if (v < min + 1 || v > max - 1) color = Brushes.Orange;
+                else if (v < min + delta || v > max - delta) color = Brushes.Orange;
                 else color = Brushes.LimeGreen;
             }
 
