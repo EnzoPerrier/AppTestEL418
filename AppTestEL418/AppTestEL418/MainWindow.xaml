@@ -368,7 +368,8 @@ this code.
                                Orientation="Vertical"
                                Margin="0,0,0,20"/>
 
-                    <Border Background="#2D2F36" 
+                    <Border x:Name="panelStsLoading"
+                            Background="#2D2F36" 
                             CornerRadius="10" 
                             Padding="30,20">
                         <StackPanel>

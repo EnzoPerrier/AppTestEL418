@@ -21,6 +21,7 @@ this code.
 using System;
 using System.IO;
 using System.IO.Ports;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,6 +48,10 @@ namespace AppTestEL418
 
         // Cellule
         private bool status_test_cel = false; // false = OK et true = NOK
+
+        // STS
+        private StringBuilder stsBuffer = new StringBuilder();
+        private bool stsReceiving = false;
 
         private readonly string[] etapeMessages =
         {
@@ -496,9 +501,26 @@ namespace AppTestEL418
             }
 
             // --- Test STS ---
-            if (currentState ==  3 && cleanedMessage.Contains("STS", StringComparison.OrdinalIgnoreCase)) // Si STS OK
+            if (currentState ==  2) // Si STS OK
             {
-                UpdateSTS(cleanedMessage);
+                // Début de trame
+                if (cleanedMessage.StartsWith("VER =", StringComparison.OrdinalIgnoreCase))
+                {
+                    stsBuffer.Clear();
+                    stsReceiving = true;
+                }
+
+                if (stsReceiving)
+                {
+                    stsBuffer.AppendLine(cleanedMessage);
+
+                    // Fin de trame
+                    if (cleanedMessage.Contains("!STS", StringComparison.OrdinalIgnoreCase))
+                    {
+                        stsReceiving = false;
+                        UpdateSTS(stsBuffer.ToString());
+                    }
+                }
             }
 
             if(currentState == 8)
@@ -537,21 +559,67 @@ namespace AppTestEL418
             }
         }
 
-        //Mise à jour STS
-        private void UpdateSTS(string STSmsg)
+        private void UpdateSTS(string stsMsg)
         {
             wrapSTS.Children.Clear();
-
-            TextBlock txt = new TextBlock
-            {
-                Text = STSmsg,
-                FontSize = 22,
-                FontWeight = FontWeights.Bold,
-                Margin = new Thickness(10)
-            };
+            panelStsLoading.Visibility = Visibility.Collapsed;
             LoadingBarSTS.Visibility = Visibility.Collapsed;
-            wrapSTS.Children.Add(txt);
+
+
+            string ver = null;
+            string acc = null;
+            string bat = null;
+            string cel = null;
+
+            foreach (string line in stsMsg.Split('\n'))
+            {
+                string l = line.Trim();
+
+                if (l.StartsWith("VER =", StringComparison.OrdinalIgnoreCase)) ver = l;
+                else if (l.StartsWith("ACC =", StringComparison.OrdinalIgnoreCase)) acc = l;
+                else if (l.StartsWith("BAT =", StringComparison.OrdinalIgnoreCase)) bat = l;
+                else if (Regex.IsMatch(l, @"^CEL\s*=\s*\d+(\.\d+)?\s*v$", RegexOptions.IgnoreCase)) cel = l;
+            }
+
+            AddSTSLine(ver, Brushes.White);
+            AddSTSVoltage(acc, 8.0f, 10.0f);
+            AddSTSVoltage(bat, 11.0f, 14.0f);
+            AddSTSLine(cel, Brushes.White);
         }
+
+        private void AddSTSLine(string text, Brush color)
+        {
+            if (string.IsNullOrEmpty(text)) return;
+
+            wrapSTS.Children.Add(new TextBlock
+            {
+                Text = text,
+                FontSize = 18,
+                FontWeight = FontWeights.Medium,
+                Foreground = color,
+                Margin = new Thickness(5)
+            });
+        }
+
+        private void AddSTSVoltage(string line, float min, float max)
+        {
+            if (string.IsNullOrEmpty(line)) return;
+
+            var match = Regex.Match(line, @"([-+]?[0-9]*\.?[0-9]+)");
+            Brush color = Brushes.White;
+
+            if (match.Success &&
+                float.TryParse(match.Value, System.Globalization.CultureInfo.InvariantCulture, out float v))
+            {
+                if (v < min || v > max) color = Brushes.Red;
+                else if (v < min + 1 || v > max - 1) color = Brushes.Orange;
+                else color = Brushes.LimeGreen;
+            }
+
+            AddSTSLine(line, color);
+        }
+
+
 
         // Mise à jour affichage état des DIPs
         private void UpdateDips()
