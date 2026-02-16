@@ -53,6 +53,11 @@ namespace AppTestEL418
         private StringBuilder stsBuffer = new StringBuilder();
         private bool stsReceiving = false;
 
+        // Compte à rebours (Etape 13)
+        private System.Windows.Threading.DispatcherTimer countdownTimer;
+        private int countdownValue = 5;
+        private bool countdownStarted = false;
+
         private readonly string[] etapeMessages =
         {
             "ETAPE 0 : Appuyez sur le bouton pour commencer", // ETAPE 0
@@ -67,7 +72,8 @@ namespace AppTestEL418
             "ETAPE 9 : Test cellule JOUR", // ETAPE 9
             "ETAPE 10 : Test cellule NUIT", // ETAPE 10
             "ETAPE 11 : Test infrarouge", // ETAPE 11
-            "ETAPE 12 : Test accu" // ETAPE 12
+            "ETAPE 12 : Test accu", // ETAPE 12
+            "ETAPE 13 : Test extinction" // ETAPE 12
         };
 
         private readonly string[] instructionMessages =
@@ -84,7 +90,8 @@ namespace AppTestEL418
             "Test cellule JOUR en cours, appuyez sur le BP valider une fois la cellule exposée à la lumière", // ETAPE 9
             "Test cellule NUIT en cours, appuyez sur le BP valider une fois la cellule exposée à l'obscurité", // ETAPE 10
             "Vérifiez l'IR en utilisant la télécommande", // ETAPE 11
-            "Vérifiez que le message 'supression de batterie' s'affiche à l'écran LCD" // ETAPE 12
+            "Vérifiez que le message 'supression de batterie' s'affiche à l'écran LCD", // ETAPE 12
+            "Vérifiez l'extinction de la carte après un appui long de environ 6s" // ETAPE 13
         };
 
         private readonly string[] etapeImages =
@@ -101,7 +108,8 @@ namespace AppTestEL418
             null,//"pack://application:,,,/Images/CEL_JOUR.png", // ETAPE 9
             null,//"pack://application:,,,/Images/CEL_NUIT.png", // ETAPE 10
             "pack://application:,,,/Images/MIS.png", // ETAPE 11
-            "pack://application:,,,/Images/etape12.jpg" // ETAPE 12
+            "pack://application:,,,/Images/etape12.jpg", // ETAPE 12
+            null, // ETAPE 13
         };
 
         public MainWindow()
@@ -139,6 +147,7 @@ namespace AppTestEL418
             panelInps.Visibility = (currentState == 5 || currentState == 6) ? Visibility.Visible : Visibility.Collapsed;
             panelCelJour.Visibility = (currentState == 9) ? Visibility.Visible : Visibility.Collapsed;
             panelCelNuit.Visibility = (currentState == 10) ? Visibility.Visible : Visibility.Collapsed;
+            panelCountdown.Visibility = (currentState == 13) ? Visibility.Visible : Visibility.Collapsed;
 
             // Permet d'écrire sans avoir a cliquer sur la zone de texte
             if (currentState == 1)
@@ -146,18 +155,16 @@ namespace AppTestEL418
                 Dispatcher.BeginInvoke(new Action(() =>
                 {
                     txtPer.Focus();
-                    //txtPer.SelectAll(); // Séléctionne le texte dans la zone de saisie
                 }), System.Windows.Threading.DispatcherPriority.Background);
             }
-
 
             // Lorsque l'on entre sur les étapes DIPs on initialise en NOK (attente de la carte)
             if (currentState == 3 || currentState == 4)
             {
                 for (int i = 0; i < dipsError.Length; i++)
                 {
-                    dipsError[i] = false;      // NOK par défaut
-                    dipsPhysical[i] = false;  // valeur inconnue => OFF affiché
+                    dipsError[i] = false;
+                    dipsPhysical[i] = false;
                 }
                 UpdateDips();
             }
@@ -172,14 +179,15 @@ namespace AppTestEL418
                 }
                 UpdateInps();
             }
-            
-            // TST (Test décompteur Etape 7)
-            if(currentState == 7)
-            {
-                TST_LED_Anim.Visibility = Visibility.Visible;
-            }else TST_LED_Anim.Visibility=Visibility.Collapsed;
 
             // TST (Test décompteur Etape 7)
+            if (currentState == 7)
+            {
+                TST_LED_Anim.Visibility = Visibility.Visible;
+            }
+            else TST_LED_Anim.Visibility = Visibility.Collapsed;
+
+            // Test ampoules Etape 8
             if (currentState == 8)
             {
                 OPT_Anim.Visibility = Visibility.Visible;
@@ -190,6 +198,16 @@ namespace AppTestEL418
             if (currentState == 9 || currentState == 10)
             {
                 UpdateCel(false);
+            }
+
+            // Etape 13 : Démarrer le compte à rebours
+            if (currentState == 13 && !countdownStarted)
+            {
+                StartCountdown();
+            }
+            else if (currentState != 13)
+            {
+                StopCountdown();
             }
         }
 
@@ -833,6 +851,87 @@ namespace AppTestEL418
 
         }
 
+        private void StartCountdown()
+        {
+            countdownStarted = true;
+            countdownValue = 5;
+            txtCountdown.Text = countdownValue.ToString();
+            txtCountdownStatus.Text = "Appui long en cours...";
+
+            // Animation du cercle de progression
+            UpdateCountdownCircle(countdownValue);
+
+            // Créer et démarrer le timer
+            countdownTimer = new System.Windows.Threading.DispatcherTimer();
+            countdownTimer.Interval = TimeSpan.FromSeconds(1);
+            countdownTimer.Tick += CountdownTimer_Tick;
+            countdownTimer.Start();
+
+        }
+
+        private void CountdownTimer_Tick(object sender, EventArgs e)
+        {
+            countdownValue--;
+
+            if (countdownValue >= 0)
+            {
+                txtCountdown.Text = countdownValue.ToString();
+                UpdateCountdownCircle(countdownValue);
+
+                // Changer la couleur en fonction du temps restant
+                if (countdownValue <= 2)
+                {
+                    txtCountdown.Foreground = Brushes.Red;
+                    ellipseCountdownProgress.Stroke = Brushes.Red;
+                }
+                else if (countdownValue <= 3)
+                {
+                    txtCountdown.Foreground = Brushes.OrangeRed;
+                    ellipseCountdownProgress.Stroke = Brushes.OrangeRed;
+                }
+            }
+            else
+            {
+                // Fin du compte à rebours
+                StopCountdown();
+                txtCountdownStatus.Text = "Vérifiez l'extinction de la carte";
+                txtCountdown.Text = "✓";
+                txtCountdown.Foreground = Brushes.LimeGreen;
+            }
+        }
+
+        private void UpdateCountdownCircle(int value)
+        {
+            // Calculer le pourcentage restant (5 secondes = 100%)
+            double percentage = (value / 5.0);
+
+            // Circonférence du cercle = 2πr (r=100 pour un diamètre de 200)
+            double circumference = 2 * Math.PI * 100;
+
+            // Calculer l'offset pour l'animation
+            double offset = circumference * (1 - percentage);
+
+            ellipseCountdownProgress.StrokeDashOffset = offset;
+        }
+
+        private void StopCountdown()
+        {
+            if (countdownTimer != null)
+            {
+                countdownTimer.Stop();
+                countdownTimer.Tick -= CountdownTimer_Tick;
+                countdownTimer = null;
+            }
+
+            countdownStarted = false;
+            countdownValue = 5;
+
+            // Réinitialiser les couleurs
+            txtCountdown.Foreground = Brushes.Orange;
+            if (ellipseCountdownProgress != null)
+                ellipseCountdownProgress.Stroke = Brushes.Orange;
+        }
+
         // Mode terminal
         private void BtnOpenTerminal_Click(object sender, RoutedEventArgs e)
         {
@@ -876,6 +975,9 @@ namespace AppTestEL418
         {
             try
             {
+                // Arrêter le compte à rebours si actif
+                StopCountdown();
+
                 if (serialPort != null)
                 {
                     serialPort.DataReceived -= SerialPort_DataReceived;

@@ -318,6 +318,26 @@ this code.
                                Margin="9"
                                ToolTip="Voir le projet sur GitHub"/>
                     </Border>
+
+                    <!-- ! BOUTONS DEBUG - À RETIRER EN PRODUCTION ⬇! -->
+                    <!--<Button x:Name="btnPrevStep"
+                        Content="◀ Préc."
+                        Style="{StaticResource ModernButton}"
+                        Width="100"
+                        Margin="0,0,10,0"
+                        Click="BtnPrevStep_Click"
+                        Background="#FF6B35"
+                        ToolTip="DEBUG: Étape précédente"/>
+
+                                        <Button x:Name="btnNextStep"
+                        Content="Suiv. ▶"
+                        Style="{StaticResource ModernButton}"
+                        Width="100"
+                        Margin="0,0,10,0"
+                        Click="BtnNextStep_Click"
+                        Background="#FF6B35"
+                        ToolTip="DEBUG: Étape suivante"/>-->
+                    
                 </StackPanel>
             </Grid>
         </Border>
@@ -466,8 +486,65 @@ this code.
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"/>
                 </ScrollViewer>
+
+                <!-- Zone compte à rebours (Étape 13) -->
+                <StackPanel x:Name="panelCountdown" 
+                            Visibility="Collapsed"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="Compte à rebours avant extinction" 
+                               FontSize="28" 
+                               FontWeight="Bold" 
+                               Foreground="White" 
+                               HorizontalAlignment="Center" 
+                               Margin="0,0,0,30"/>
+
+                    <Viewbox Width="250" Height="250">
+                        <Canvas Width="200" Height="200">
+                            <!-- Cercle de fond -->
+                            <Ellipse Width="200" Height="200" 
+                                     Stroke="#3A3B40" 
+                                     StrokeThickness="12" 
+                                     Fill="Transparent"/>
+
+                            <!-- Cercle de progression -->
+                            <Ellipse x:Name="ellipseCountdownProgress" 
+                                     Width="200" 
+                                     Height="200" 
+                                     Stroke="Orange" 
+                                     StrokeThickness="12" 
+                                     Fill="Transparent"
+                                     StrokeDashArray="628.318" 
+                                     StrokeDashOffset="0"
+                                     RenderTransformOrigin="0.5,0.5">
+                                <Ellipse.RenderTransform>
+                                    <RotateTransform Angle="-90"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+
+                            <!-- Texte du compte à rebours -->
+                            <TextBlock x:Name="txtCountdown" 
+                                       Text="5" 
+                                       FontSize="90" 
+                                       FontWeight="Bold" 
+                                       Foreground="Orange" 
+                                       Canvas.Left="65" 
+                                       Canvas.Top="45"/>
+                        </Canvas>
+                    </Viewbox>
+
+                    <TextBlock x:Name="txtCountdownStatus" 
+                               Text="Appui long en cours..." 
+                               FontSize="20" 
+                               Foreground="#CCC" 
+                               HorizontalAlignment="Center" 
+                               Margin="0,30,0,0"/>
+                </StackPanel>
+
             </Grid>
         </Border>
+
 
         <!-- Zone saisie PER (visible étape 1 uniquement) -->
         <Border Grid.Row="3" 
@@ -493,7 +570,7 @@ this code.
             </StackPanel>
         </Border>
 
-        <!-- Console moderne -->
+        <!-- Console -->
         <Border Grid.Row="4" 
                 Background="#0D0D0F" 
                 CornerRadius="12" 
