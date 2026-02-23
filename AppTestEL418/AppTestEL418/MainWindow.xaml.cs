@@ -464,7 +464,6 @@ namespace AppTestEL418
                 }
                 
                 UpdateDips();
-                Task.Delay(500);
             }
 
 
@@ -499,7 +498,6 @@ namespace AppTestEL418
                 }
 
                 UpdateInps();
-                Task.Delay(500);
             }
 
             // --- Test CEL JOUR & NUIT---
