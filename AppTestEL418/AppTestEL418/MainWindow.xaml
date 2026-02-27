@@ -501,23 +501,23 @@ this code.
                                Margin="0,0,0,30"/>
 
                     <Viewbox Width="250" Height="250">
-                        <Canvas Width="200" Height="200">
+                        <Grid Width="200" Height="200">
                             <!-- Cercle de fond -->
                             <Ellipse Width="200" Height="200" 
-                                     Stroke="#3A3B40" 
-                                     StrokeThickness="12" 
-                                     Fill="Transparent"/>
+                 Stroke="#3A3B40" 
+                 StrokeThickness="12" 
+                 Fill="Transparent"/>
 
                             <!-- Cercle de progression -->
                             <Ellipse x:Name="ellipseCountdownProgress" 
-                                     Width="200" 
-                                     Height="200" 
-                                     Stroke="Orange" 
-                                     StrokeThickness="12" 
-                                     Fill="Transparent"
-                                     StrokeDashArray="628.318" 
-                                     StrokeDashOffset="0"
-                                     RenderTransformOrigin="0.5,0.5">
+                                 Width="200" 
+                                 Height="200" 
+                                 Stroke="Orange" 
+                                 StrokeThickness="12" 
+                                 Fill="Transparent"
+                                 StrokeDashArray="628.318" 
+                                 StrokeDashOffset="0"
+                                 RenderTransformOrigin="0.5,0.5">
                                 <Ellipse.RenderTransform>
                                     <RotateTransform Angle="-90"/>
                                 </Ellipse.RenderTransform>
@@ -525,13 +525,13 @@ this code.
 
                             <!-- Texte du compte à rebours -->
                             <TextBlock x:Name="txtCountdown" 
-                                       Text="5" 
-                                       FontSize="90" 
-                                       FontWeight="Bold" 
-                                       Foreground="Orange" 
-                                       Canvas.Left="65" 
-                                       Canvas.Top="45"/>
-                        </Canvas>
+                           Text="5" 
+                           FontSize="90" 
+                           FontWeight="Bold" 
+                           Foreground="Orange"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                        </Grid>
                     </Viewbox>
 
                     <TextBlock x:Name="txtCountdownStatus" 
