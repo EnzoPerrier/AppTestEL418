@@ -56,6 +56,11 @@ L’application a été pensée pour offrir une interface moderne, ergonomique e
 4. **Analyser les résultats**  
 - Les statuts des tests apparaissent sous forme d’indicateurs colorés.
 
+## 👨‍💻Présentation de l'interface
+
+![INDEX](Ressources/Images/INDEX_PRESENTATION.png)
+![TERMINAL](Ressources/Images/TERMINAL_PRESENTATION.png)
+
 ## 🛠️ Utilisation du Banc de Test
 
 ![SchemaBDT1](Ressources/Images/Schema%20des%20E-S%201-Biais%20droite.png)
