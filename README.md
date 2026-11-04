@@ -25,9 +25,9 @@ L’application a été pensée pour offrir une interface moderne, ergonomique e
 
 ## 📁 Fichiers utiles
 
-- Lien vers les fichiers de CAO électronique: https://github.com/EnzoPerrier/BancTestEL418-Electronique
+- Lien vers les fichiers de CAO électronique: https://github.com/EnzoPerrier/CE001_BancTestEL418-Electronique
 - Lien vers les fichiers CAO 3D: https://www.thingiverse.com/thing:7192111
-- Lien vers les fichiers sources du logiciel embarqué: https://github.com/EnzoPerrier/BANC_TEST_001_V100
+- Lien vers les fichiers sources du logiciel embarqué: https://github.com/EnzoPerrier/CE001_001_Banc-Test-EL418-standard_Vxxx
 
 ---
 
