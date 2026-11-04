@@ -599,7 +599,7 @@ namespace AppTestEL418
 
             AddSTSLine(ver, Brushes.White);
             AddSTSVoltage(acc, 8.0f, 10.0f);
-            AddSTSVoltage(bat, 11.0f, 14.0f);
+            AddSTSLine(bat, Brushes.White);
             AddSTSLine(cel, Brushes.White);
         }
 
@@ -966,6 +966,46 @@ namespace AppTestEL418
             };
 
             terminalWindow.Show();
+        }
+
+        // Mode monitor INA219 (tension / courant / puissance)
+        private void BtnOpenMonitor_Click(object sender, RoutedEventArgs e)
+        {
+            if (serialPort == null || !serialPort.IsOpen)
+            {
+                MessageBox.Show("Veuillez ouvrir un port série avant d'accéder au monitor !");
+                return;
+            }
+
+            if (terminalWindow != null && terminalWindow.IsVisible)
+            {
+                MessageBox.Show("Fermez d'abord le terminal.");
+                return;
+            }
+
+            // Comme pour le terminal : la fenêtre monitor prend la main sur la réception
+            try { serialPort.DataReceived -= SerialPort_DataReceived; } catch { }
+
+            var monitor = new MonitorWindow(serialPort) { Owner = this };
+            monitor.ShowDialog();   // bloquant : à la fermeture, le stream est désactivé
+
+            try
+            {
+                if (serialPort != null && serialPort.IsOpen)
+                {
+                    serialPort.DiscardInBuffer();
+                    serialPort.DataReceived += SerialPort_DataReceived;
+                }
+            }
+            catch { }
+
+            // Après stream_disable, la carte repart à l'étape 0 : on resynchronise l'interface
+            if (monitor.StreamWasUsed)
+            {
+                currentState = 0;
+                UpdateUI();
+                Log("Monitor fermé - retour à l'étape 0");
+            }
         }
 
         // A la fermeture de la fenêtre 
