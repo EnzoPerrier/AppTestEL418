@@ -513,3 +513,7 @@ C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\win-x64\AppTestEL418.pdb
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\win-x64\AppTestEL418.genruntimeconfig.cache
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\win-x64\ref\AppTestEL418.dll
+C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\win-x64\MonitorWindow.g.cs
+C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\win-x64\GeneratedInternalTypeHelper.g.cs
+C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\win-x64\AppTestEL418_MarkupCompile.lref
+C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\win-x64\MonitorWindow.baml

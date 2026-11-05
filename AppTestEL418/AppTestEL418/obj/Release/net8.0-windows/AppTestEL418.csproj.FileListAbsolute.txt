@@ -86,6 +86,10 @@ Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\App
 Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418.pdb
 Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418.genruntimeconfig.cache
 Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\ref\AppTestEL418.dll
+Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\MonitorWindow.g.cs
+Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418_MarkupCompile.lref
+Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\MonitorWindow.baml
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\AppTestEL418.exe
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\AppTestEL418.deps.json
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\bin\Release\net8.0-windows\AppTestEL418.runtimeconfig.json
@@ -115,9 +119,13 @@ C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\MainWindow.baml
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\TerminalWindow.baml
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\MainWindow.g.cs
+C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\MonitorWindow.g.cs
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\TerminalWindow.g.cs
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\App.g.cs
+C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418_MarkupCompile.cache
+C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418_MarkupCompile.lref
+C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\MonitorWindow.baml
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418.g.resources
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418.AssemblyInfoInputs.cache
@@ -130,7 +138,3 @@ C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418.pdb
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418.genruntimeconfig.cache
 C:\Users\sav02\Documents\BANC_TEST_EL418\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\ref\AppTestEL418.dll
-Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\MonitorWindow.g.cs
-Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\GeneratedInternalTypeHelper.g.cs
-Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\AppTestEL418_MarkupCompile.lref
-Z:\Projets\Projet 11 Banc de test EL418 - TTS\soft\AppTestEL418\AppTestEL418\AppTestEL418\obj\Release\net8.0-windows\MonitorWindow.baml

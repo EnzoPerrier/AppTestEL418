@@ -57,6 +57,18 @@ this code.
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="ClearButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
+            <Setter Property="BorderBrush" Value="#FF4757"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF4757"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#CC3A46"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Grid Margin="15">
@@ -86,7 +98,7 @@ this code.
                     <Button x:Name="btnStop" Content="◼ Arrêter" Width="120" Margin="0,0,10,0"
                             Style="{StaticResource ModernButton}" Click="BtnStop_Click"/>
                     <Button x:Name="btnClear" Content="🗑 Effacer" Width="110"
-                            Style="{StaticResource ModernButton}" Click="BtnClear_Click"/>
+                            Style="{StaticResource ClearButton}" Click="BtnClear_Click"/>
                 </StackPanel>
 
                 <TextBlock x:Name="txtStatus" Grid.Row="0" Grid.Column="1"
